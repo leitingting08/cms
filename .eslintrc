@@ -1,0 +1,28 @@
+{
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["./src"]
+      }
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jest": true
+  },
+  "extends": ["next", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
+  "rules": {
+    "no-console": ["warn", { "allow": ["info", "warn", "error", "debug"] }],
+    "prettier/prettier": "error"
+  }
+}

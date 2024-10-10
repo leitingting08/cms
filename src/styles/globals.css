@@ -1,0 +1,226 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  html, body {
+    @apply bg-black m-0 p-0 text-white font-primary w-full overflow-x-hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mask-gradient {
+    mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+  }
+  .wrapper {
+    -webkit-overflow-scrolling: touch;
+    tranition: all 0.3s ease-in-out;
+  }
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+  .loading-top {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60%;
+    z-index: 10002;
+    background-color: #000;
+  }
+
+  .loading-btm {
+    background-color: #000;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 60%;
+    z-index: 10002;
+  }
+  
+  .arrowScroll {
+    animation: KVscroll 2s infinite cubic-bezier(.39,0,.12,.99);
+  }
+
+  @keyframes KVscroll {
+    0% {
+      transform: translateY(-20px);
+    }
+    50% {
+      transform: translateY(0px);
+    }
+    100% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .animate-width {
+      animation: expandWidth 2s ease-in-out forwards;
+  }
+
+  @keyframes expandWidth {
+      from {
+          width: 0;
+      }
+      to {
+          width: 100%;
+      }
+  }
+
+  .animate-slide-in-top {
+      animation: slideInFromTop 1s ease-out forwards;
+  }
+
+  .animate-slide-in-bottom {
+      animation: slideInFromBottom 1s ease-out forwards;
+  }
+
+  @keyframes slideInFromTop {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+  .loader {
+    position: fixed;
+    left: 0;
+    width: 0;
+    height: 6px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10003;
+  }
+
+  .slide-up {
+    transform: translateY(-100%);
+  }
+
+  .slide-down {
+    transform: translateY(100%);
+  }
+  .bg {
+    @apply bg-no-repeat bg-cover bg-center object-cover;
+  }
+  .bg3 {
+    background-image: url('../assets/bg3.png');
+  }
+  .bg4 {
+    background-image: url('../assets/bg4.png');
+  }
+  .showLeft {
+    animation: bounceInRight 0.1s linear forwards;
+  }
+
+  .hideLeft {
+    animation: bounceOutRight 0.1s linear forwards;
+  }
+
+  @keyframes bounceInRight {
+    0% {
+      transform: -translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes bounceOutRight {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: -translateX(100%);
+    }
+  }
+  .animate-fadeIn {
+    animation: fadeIn 1s linear forwards;
+  }
+  .animate-fadeOut {
+    animation: fadeOut 1s linear forwards;
+  }
+  .animate-up {
+    animation: up 1s linear forwards;
+  }
+  .animate-down {
+    animation: down 1s linear forwards;
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes up {
+    0% { transform: translateY(100%); opacity: 0; clip-path: polygon(100% 100%, 0% 100%, 0% 100%, 100% 100%); }
+    100% { transform: translateY(0%); opacity: 1; clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%); }
+  }
+  @keyframes down {
+    0% { transform: translateY(0%); opacity: 1; clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%);}
+    100% { transform: translateY(-100%); opacity: 0; clip-path: polygon(100% 100%, 0% 100%, 0% 100%, 100% 100%);}
+  }
+}
+
+@layer components {
+  .dot {
+    @apply inline-block w-2 h-2 min-w-[0.5rem] min-h-[0.5rem] md:w-3 md:h-3 md:min-w-[0.75rem] md:min-h-[0.75rem] bg-[#FF51C5] rounded-full mr-4 relative mt-2 before:w-4 before:h-4 before:md:w-5 before:md:h-5 before:bg-[#FF51C5] before:blur-sm before:rounded-full before:absolute before:-top-1 before:-left-1 z-10 before:z-0
+  }
+  .bg {
+    @apply bg-left-top bg-no-repeat bg-contain
+  }
+  .flex-center {
+    @apply flex items-center justify-center
+  }
+  .flex-between {
+   @apply flex justify-between items-center
+  }
+  .flex-around {
+   @apply flex justify-around items-center
+  }
+  .flex-start {
+    @apply flex justify-start items-start
+   }
+   .flex-startc {
+    @apply flex justify-start items-center
+   }
+  .flex-end {
+    @apply flex justify-end items-center
+   }
+  .round-bg {
+    @apply absolute w-[6.25rem] h-[6.25rem] rounded-full flex-center z-10 gradient-border
+  }
+  .round-text {
+    @apply absolute rounded-b-[0.875rem] z-10 bg-[#2B1B58] p-2 text-left
+  }
+  .time {
+    @apply text-[#FF3880] drop-shadow-[0_0px_10px_0px_#FF005C] text-sm md:text-base;
+  }
+  .time-blue {
+    @apply text-blue drop-shadow-[0_0px_10px_0px_#FF005C] text-sm md:text-base;
+  }
+}
+

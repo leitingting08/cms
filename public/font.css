@@ -1,0 +1,16 @@
+@font-face {
+    font-family: primary;
+    src: url('./fonts/sf-pro-display_regular.ttf');
+}
+
+@font-face {
+    font-family: primaryBold;
+    src: url('./fonts/sf-pro-display_semibold.ttf');
+}
+
+@font-face {
+    font-family: SwisBold;
+    src: url('./fonts/Swis721-Blk-BT-Black-2.ttf');
+}
+
+
