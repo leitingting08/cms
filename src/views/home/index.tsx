@@ -144,66 +144,31 @@ const Home: React.FC = () => {
         </div>
       </div>
       <div className="relative">
-        <Swiper
-          className="h-[40rem] md:h-[50rem] w-full overflow-hidden"
-          modules={[Scrollbar]}
-          slidesPerView={1}
-          direction="vertical"
-          scrollbar={{
-            hide: false
-          }}
-        >
-          <SwiperSlide className="block relative h-[40rem] bg3 bg bg-contain w-full">
-            <Image src={bg3Src} alt="Background" className="absolute inset-0 w-full h-full object-cover" />
-            <div className="md:w-[40rem] relative z-10 p-8 text-left py-20">
-              <AnimatedSection>
-                <div className="text-4xl md:text-6xl font-bold mb-8">{t('Myrun Navigation Eye')}</div>
-                <div>
+        <div className="block relative h-[40rem] bg3 bg bg-contain w-full">
+          <Image src={bg3Src} alt="Background" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="md:w-[40rem] relative z-10 p-8 text-left py-20">
+            <AnimatedSection>
+              <div className="text-4xl md:text-6xl font-bold mb-8">{t('Myrun Navigation Eye')}</div>
+              <div>
+                {t(
+                  'The ship surrounding situation awareness product independently developed by MyRun Intelligent Technology'
+                )}
+              </div>
+            </AnimatedSection>
+            <AnimatedSection>
+              <ul className="pt-40 md:pt-60">
+                <li className="mb-8 list-disc">
+                  {t("360° panoramic image of the ship's surroundings, full coverage of blind spots")}
+                </li>
+                <li className="list-disc">
                   {t(
-                    'The ship surrounding situation awareness product independently developed by MyRun Intelligent Technology'
+                    'In specific scenarios such as berthing, unberthing, entering and leaving the port, the relative status of the ship and its surroundings, such as distance, speed, angle, etc., is measured and displayed in real time.'
                   )}
-                </div>
-              </AnimatedSection>
-              <AnimatedSection>
-                <ul className="pt-40 md:pt-60">
-                  <li className="mb-8 list-disc">
-                    {t("360° panoramic image of the ship's surroundings, full coverage of blind spots")}
-                  </li>
-                  <li className="list-disc">
-                    {t(
-                      'In specific scenarios such as berthing, unberthing, entering and leaving the port, the relative status of the ship and its surroundings, such as distance, speed, angle, etc., is measured and displayed in real time.'
-                    )}
-                  </li>
-                </ul>
-              </AnimatedSection>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="block relative h-[40rem] bg3 bg bg-contain w-full">
-            <Image src={bg2Src} alt="Background" className="absolute inset-0 w-full h-full object-cover" />
-            <div className="md:w-[40rem] relative z-10 p-8 text-left py-20">
-              <AnimatedSection>
-                <div className="text-4xl md:text-6xl font-bold mb-8">{t('Myrun Navigation Eye')}</div>
-                <div>
-                  {t(
-                    'The ship surrounding situation awareness product independently developed by MyRun Intelligent Technology'
-                  )}
-                </div>
-              </AnimatedSection>
-              <AnimatedSection>
-                <ul className="pt-40 md:pt-60">
-                  <li className="mb-8 list-disc">
-                    {t("360° panoramic image of the ship's surroundings, full coverage of blind spots")}
-                  </li>
-                  <li className="list-disc">
-                    {t(
-                      'In specific scenarios such as berthing, unberthing, entering and leaving the port, the relative status of the ship and its surroundings, such as distance, speed, angle, etc., is measured and displayed in real time.'
-                    )}
-                  </li>
-                </ul>
-              </AnimatedSection>
-            </div>
-          </SwiperSlide>
-        </Swiper>
+                </li>
+              </ul>
+            </AnimatedSection>
+          </div>
+        </div>
       </div>
       <div className="w-full bg-white text-black">
         <div className="container m-auto relative md:flex-between text-left px-6 md:px-0">
