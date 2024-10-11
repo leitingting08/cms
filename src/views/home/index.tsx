@@ -10,6 +10,7 @@ import 'swiper/css/scrollbar'
 import { Autoplay, Scrollbar } from 'swiper/modules'
 import Marquee from 'react-fast-marquee'
 import useInView from 'hooks/useInView'
+import MyScroll from './components/scroll'
 
 function AnimatedSection({ children, delay }: any) {
   const [ref, inView] = useInView()
@@ -55,6 +56,24 @@ const Home: React.FC = () => {
       title: 'Smart Ships For MASS Consensus',
       date: '2023.07.20',
       image: '/images/news1.png'
+    }
+  ]
+  const [activeSection, setActiveSection] = useState(0)
+  const sections = [
+    {
+      title: 'Decarbonization',
+      text: 'We are pursuing digital innovation to provide optimal operations for the future and develop safe and efficient smart yards.',
+      image: '/images/image.png'
+    },
+    {
+      title: 'Innovation',
+      text: 'Leading the way in technological advancements for a smarter future.',
+      image: '/bg1.png'
+    },
+    {
+      title: 'Sustainability',
+      text: 'Committed to sustainable practices for a healthier planet.',
+      image: '/images/image.png'
     }
   ]
 
@@ -143,6 +162,49 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
+      <MyScroll />
+      {/* <div className="relative h-[300vh] overflow-scroll">
+        <div className="sticky top-0">
+          <div id="scroll-container" className="scroll-container overflow-y-auto relative">
+            <div className="section section1 w-full h-full">
+              <div className="relative w-full h-full">
+                <div className="bgsection bgsection1" />
+                <div className="content">
+                  <div className="pin">
+                    <h1>Decarbonization</h1>
+                    <p>
+                      We are pursuing digital innovation to provide optimal operations for the future and develop safe
+                      and efficient smart yards.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="section section2 w-full h-full">
+              <div className="relative w-full h-full">
+                <div className="bgsection bgsection2" />
+                <div className="content">
+                  <div className="pin">
+                    <h1>Innovation</h1>
+                    <p>Leading the way in technological advancements for a smarter future.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="section section3 w-full h-full">
+              <div className="relative w-full h-full">
+                <div className="bgsection bgsection3" />
+                <div className="content">
+                  <div className="pin">
+                    <h1>Sustainability</h1>
+                    <p>Committed to sustainable practices for a healthier planet.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> */}
       <div className="relative">
         <div className="block relative h-[40rem] bg3 bg bg-contain w-full">
           <Image src={bg3Src} alt="Background" className="absolute inset-0 w-full h-full object-cover" />

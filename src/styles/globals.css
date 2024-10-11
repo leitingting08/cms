@@ -6,9 +6,94 @@
   html {
     scroll-behavior: smooth;
   }
-  html, body {
-    @apply bg-black m-0 p-0 text-white font-primary w-full overflow-x-hidden;
+  html,
+  body {
+    @apply bg-black m-0 p-0 text-white font-primary w-full h-full;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .parallax-wrap {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    height: 100vh;
+    translate: none;
+    rotate: none;
+    scale: none;
+    transform: translate(0px, 0px);
+    width: 100%;
+  }
+
+  .sticky-content {
+    position: sticky;
+    top: 0;
+  }
+
+  .parallax-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    contain: paint;
+  }
+
+  .parallax-item .clip {
+    /* position: relative; */
+    width: 100%;
+    height: 100%;
+  }
+
+  .parallax-item .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .parallax-item.pr1 .bg {
+    background: url('/images/bg2.png') no-repeat center/cover;
+  }
+
+  .parallax-item.pr2 .bg {
+    background: url('/images/bg3.png') no-repeat center/cover;
+  }
+
+  .parallax-item .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+  }
+
+  .parallax-item .content .pin {
+    position: sticky;
+    top: 0;
+    width: 50%;
+    padding-left: min(8.75vw, 168px);
+    box-sizing: border-box;
+  }
+
+  .parallax-item .txt-wrap {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .parallax-item .txt-wrap .tit {
+    font-size: min(3.125vw, 60px);
+    line-height: min(4.75vw, 91.2px);
+  }
+
+  .parallax-item .txt-wrap .desc {
+    margin-top: min(1.25vw, 24px);
+    font-weight: 300;
   }
 
   .mask-gradient {
@@ -41,9 +126,9 @@
     height: 60%;
     z-index: 10002;
   }
-  
+
   .arrowScroll {
-    animation: KVscroll 2s infinite cubic-bezier(.39,0,.12,.99);
+    animation: KVscroll 2s infinite cubic-bezier(0.39, 0, 0.12, 0.99);
   }
 
   @keyframes KVscroll {
@@ -59,48 +144,47 @@
   }
 
   .animate-width {
-      animation: expandWidth 2s ease-in-out forwards;
+    animation: expandWidth 2s ease-in-out forwards;
   }
 
   @keyframes expandWidth {
-      from {
-          width: 0;
-      }
-      to {
-          width: 100%;
-      }
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
   }
 
   .animate-slide-in-top {
-      animation: slideInFromTop 1s ease-out forwards;
+    animation: slideInFromTop 1s ease-out forwards;
   }
 
   .animate-slide-in-bottom {
-      animation: slideInFromBottom 1s ease-out forwards;
+    animation: slideInFromBottom 1s ease-out forwards;
   }
 
   @keyframes slideInFromTop {
     from {
-        transform: translateY(-100%);
-        opacity: 0;
+      transform: translateY(-100%);
+      opacity: 0;
     }
     to {
-        transform: translateY(0);
-        opacity: 1;
+      transform: translateY(0);
+      opacity: 1;
     }
-}
+  }
 
-@keyframes slideInFromBottom {
+  @keyframes slideInFromBottom {
     from {
-        transform: translateY(100%);
-        opacity: 0;
+      transform: translateY(100%);
+      opacity: 0;
     }
     to {
-        transform: translateY(0);
-        opacity: 1;
+      transform: translateY(0);
+      opacity: 1;
     }
-}
-
+  }
 
   .loader {
     position: fixed;
@@ -167,54 +251,78 @@
     animation: down 1s linear forwards;
   }
   @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-  
+
   @keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
   @keyframes up {
-    0% { transform: translateY(100%); opacity: 0; clip-path: polygon(100% 100%, 0% 100%, 0% 100%, 100% 100%); }
-    100% { transform: translateY(0%); opacity: 1; clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%); }
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+      clip-path: polygon(100% 100%, 0% 100%, 0% 100%, 100% 100%);
+    }
+    100% {
+      transform: translateY(0%);
+      opacity: 1;
+      clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%);
+    }
   }
   @keyframes down {
-    0% { transform: translateY(0%); opacity: 1; clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%);}
-    100% { transform: translateY(-100%); opacity: 0; clip-path: polygon(100% 100%, 0% 100%, 0% 100%, 100% 100%);}
+    0% {
+      transform: translateY(0%);
+      opacity: 1;
+      clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%);
+    }
+    100% {
+      transform: translateY(-100%);
+      opacity: 0;
+      clip-path: polygon(100% 100%, 0% 100%, 0% 100%, 100% 100%);
+    }
   }
 }
 
 @layer components {
   .dot {
-    @apply inline-block w-2 h-2 min-w-[0.5rem] min-h-[0.5rem] md:w-3 md:h-3 md:min-w-[0.75rem] md:min-h-[0.75rem] bg-[#FF51C5] rounded-full mr-4 relative mt-2 before:w-4 before:h-4 before:md:w-5 before:md:h-5 before:bg-[#FF51C5] before:blur-sm before:rounded-full before:absolute before:-top-1 before:-left-1 z-10 before:z-0
+    @apply inline-block w-2 h-2 min-w-[0.5rem] min-h-[0.5rem] md:w-3 md:h-3 md:min-w-[0.75rem] md:min-h-[0.75rem] bg-[#FF51C5] rounded-full mr-4 relative mt-2 before:w-4 before:h-4 before:md:w-5 before:md:h-5 before:bg-[#FF51C5] before:blur-sm before:rounded-full before:absolute before:-top-1 before:-left-1 z-10 before:z-0;
   }
   .bg {
-    @apply bg-left-top bg-no-repeat bg-contain
+    @apply bg-left-top bg-no-repeat bg-contain;
   }
   .flex-center {
-    @apply flex items-center justify-center
+    @apply flex items-center justify-center;
   }
   .flex-between {
-   @apply flex justify-between items-center
+    @apply flex justify-between items-center;
   }
   .flex-around {
-   @apply flex justify-around items-center
+    @apply flex justify-around items-center;
   }
   .flex-start {
-    @apply flex justify-start items-start
-   }
-   .flex-startc {
-    @apply flex justify-start items-center
-   }
+    @apply flex justify-start items-start;
+  }
+  .flex-startc {
+    @apply flex justify-start items-center;
+  }
   .flex-end {
-    @apply flex justify-end items-center
-   }
+    @apply flex justify-end items-center;
+  }
   .round-bg {
-    @apply absolute w-[6.25rem] h-[6.25rem] rounded-full flex-center z-10 gradient-border
+    @apply absolute w-[6.25rem] h-[6.25rem] rounded-full flex-center z-10 gradient-border;
   }
   .round-text {
-    @apply absolute rounded-b-[0.875rem] z-10 bg-[#2B1B58] p-2 text-left
+    @apply absolute rounded-b-[0.875rem] z-10 bg-[#2B1B58] p-2 text-left;
   }
   .time {
     @apply text-[#FF3880] drop-shadow-[0_0px_10px_0px_#FF005C] text-sm md:text-base;
@@ -223,4 +331,3 @@
     @apply text-blue drop-shadow-[0_0px_10px_0px_#FF005C] text-sm md:text-base;
   }
 }
-
