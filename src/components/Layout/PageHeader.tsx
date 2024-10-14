@@ -1,4 +1,4 @@
-import { menudSrc, closeSrc, logoSrc } from 'utils/icon'
+import { menudSrc, closeSrc, logoSrc, logoCSrc } from 'utils/icon'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'contexts/Localization'
@@ -8,17 +8,31 @@ import { useState } from 'react'
 
 interface PageHeaderProps {
   onChange?: Function
+  isWhite?: boolean
 }
 
-export const PageHeader = ({ onChange }: PageHeaderProps) => {
+export const PageHeader = ({ onChange, isWhite = true }: PageHeaderProps) => {
   const router = useRouter()
   const { t } = useTranslation()
   const [showPanples, setShowPanples] = useState(false)
 
   return (
-    <div className="relative h-20 md:h-32 hover:bg-black z-50">
+    <div className={`relative h-20 md:h-32  z-50 ${isWhite?'bg-white text-black': 'hover:bg-black'}`}>
       <div className="container m-auto relative">
         <div className="text-2xl flex-between h-20 md:h-32 px-4 relative">
+         
+          <Image
+            src={isWhite ? logoCSrc: logoSrc}
+            alt="logo"
+            onClick={() => router.push('/')}
+            className="cursor-pointer w-40 md:w-48 h-10 md:h-auto"
+          />
+          <div className="hidden md:flex-between">
+            <Menu isWhite={isWhite} />
+          </div>
+          <div className="hidden md:block">
+            <Translate />
+          </div>
           <Image
             src={menudSrc}
             alt="logo"
@@ -27,18 +41,6 @@ export const PageHeader = ({ onChange }: PageHeaderProps) => {
               setShowPanples(true)
             }}
           />
-          <Image
-            src={logoSrc}
-            alt="logo"
-            onClick={() => router.push('/')}
-            className="cursor-pointer w-40 md:w-48 h-10 md:h-auto"
-          />
-          <div className="hidden md:flex-between">
-            <Menu />
-          </div>
-          <div className="hidden md:block">
-            <Translate />
-          </div>
         </div>
       </div>
       <div

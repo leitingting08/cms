@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Layout from 'components/Layout'
 import { useTranslation } from 'contexts/Localization'
-import useToast from 'hooks/useToast'
 import Image from 'next/image'
-import { arrowbgSrc, bg2Src, bg3Src, startsaySrc, endsaySrc, backSrc } from 'utils/icon'
+import { arrowbgSrc, bg2Src, startsaySrc, endsaySrc, backSrc, videoBg1Src, videoBg2Src, videoBg3Src } from 'utils/icon'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/scrollbar'
@@ -12,7 +11,7 @@ import Marquee from 'react-fast-marquee'
 import useInView from 'hooks/useInView'
 import MyScroll from './components/scroll'
 
-function AnimatedSection({ children, delay }: any) {
+export const AnimatedSection = ({ children, delay }: any) => {
   const [ref, inView] = useInView()
 
   return (
@@ -29,7 +28,7 @@ function AnimatedSection({ children, delay }: any) {
 
 const Home: React.FC = () => {
   const { t } = useTranslation()
-  const { toastInfo } = useToast()
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   const newsItems = [
     {
@@ -58,36 +57,52 @@ const Home: React.FC = () => {
       image: '/images/news1.png'
     }
   ]
-  const [activeSection, setActiveSection] = useState(0)
-  const sections = [
-    {
-      title: 'Decarbonization',
-      text: 'We are pursuing digital innovation to provide optimal operations for the future and develop safe and efficient smart yards.',
-      image: '/images/image.png'
-    },
-    {
-      title: 'Innovation',
-      text: 'Leading the way in technological advancements for a smarter future.',
-      image: '/bg1.png'
-    },
-    {
-      title: 'Sustainability',
-      text: 'Committed to sustainable practices for a healthier planet.',
-      image: '/images/image.png'
-    }
-  ]
+
+  useEffect(() => {
+    videoRef.current && videoRef.current.play()
+  }, [])
 
   return (
-    <Layout>
+    <Layout isWhite={false}>
       <div className="relative w-ful -mt-20 md:-mt-32 h-[calc(100vh-3rem)]">
-        <Image src="/bg1.png" alt="" className="relative top-0 left-0 w-full h-full" width={1920} height={1080} />
-        <div className="absolute top-0 left-0 w-full h-full flex-center">
+          <video
+            ref={videoRef} 
+            preload="true"
+            loop={true}
+            autoPlay={true}
+            playsInline={true}
+            controls={false}
+            muted={true}
+            // width={1920} 
+            // height={1080}
+            className="relative top-0 left-0 w-full h-[100vh] object-cover"  
+          >
+            <img alt="" src={videoBg1Src} className='w-full h-full' />
+            <source src="videos/5.mp4" />
+          </video>
+        <div className="absolute top-0 left-0 w-full h-full">
           <Image
             src={arrowbgSrc}
             className="absolute bottom-8 md:bottom-16 right-8 md:right-16 arrowScroll w-8"
             alt=""
           />
-          <div className="w-[86%] md:w-auto">
+          <div className="container m-auto text-left pt-[40rem]">
+            <AnimatedSection>
+              <div className="text-4xl md:text-7xl overflow-hidden w-[50rem]">
+                <div>
+                  {t('Complete，Clearer, Comprehensive and Communicatable')}
+                </div>
+              </div>
+              </AnimatedSection>
+              <AnimatedSection delay={1000}>
+              <div className="text-xl md:text-2xl overflow-hidden">
+                <div>
+                  {t('AI Visual Perception and Multi-source Data Fusion Technology')}
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+          {/* <div className="w-[86%] md:w-auto">
             <div className="text-4xl md:text-7xl h-[90px] overflow-hidden">
               <div className="-translate-y-[100%] animate-slide-in-bottom animation-delay-2000">
                 {t('Comprehensive, entire process, all shared')}
@@ -99,7 +114,7 @@ const Home: React.FC = () => {
                 {t('Intelligent navigation solutions for MASS')}
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="bg-[rgba(12,35,136,0.7)] h-[3.125rem] flex items-center">
           <div className="bg-[#1059D3] h-full px-4 flex-center">{t('NEWS')}</div>
@@ -162,76 +177,9 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
+     <div id='product'>
       <MyScroll />
-      {/* <div className="relative h-[300vh] overflow-scroll">
-        <div className="sticky top-0">
-          <div id="scroll-container" className="scroll-container overflow-y-auto relative">
-            <div className="section section1 w-full h-full">
-              <div className="relative w-full h-full">
-                <div className="bgsection bgsection1" />
-                <div className="content">
-                  <div className="pin">
-                    <h1>Decarbonization</h1>
-                    <p>
-                      We are pursuing digital innovation to provide optimal operations for the future and develop safe
-                      and efficient smart yards.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="section section2 w-full h-full">
-              <div className="relative w-full h-full">
-                <div className="bgsection bgsection2" />
-                <div className="content">
-                  <div className="pin">
-                    <h1>Innovation</h1>
-                    <p>Leading the way in technological advancements for a smarter future.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="section section3 w-full h-full">
-              <div className="relative w-full h-full">
-                <div className="bgsection bgsection3" />
-                <div className="content">
-                  <div className="pin">
-                    <h1>Sustainability</h1>
-                    <p>Committed to sustainable practices for a healthier planet.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
-      <div className="relative">
-        <div className="block relative h-[40rem] bg3 bg bg-contain w-full">
-          <Image src={bg3Src} alt="Background" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="md:w-[40rem] relative z-10 p-8 text-left py-20">
-            <AnimatedSection>
-              <div className="text-4xl md:text-6xl font-bold mb-8">{t('Myrun Navigation Eye')}</div>
-              <div>
-                {t(
-                  'The ship surrounding situation awareness product independently developed by MyRun Intelligent Technology'
-                )}
-              </div>
-            </AnimatedSection>
-            <AnimatedSection>
-              <ul className="pt-40 md:pt-60">
-                <li className="mb-8 list-disc">
-                  {t("360° panoramic image of the ship's surroundings, full coverage of blind spots")}
-                </li>
-                <li className="list-disc">
-                  {t(
-                    'In specific scenarios such as berthing, unberthing, entering and leaving the port, the relative status of the ship and its surroundings, such as distance, speed, angle, etc., is measured and displayed in real time.'
-                  )}
-                </li>
-              </ul>
-            </AnimatedSection>
-          </div>
-        </div>
-      </div>
+     </div>
       <div className="w-full bg-white text-black">
         <div className="container m-auto relative md:flex-between text-left px-6 md:px-0">
           <AnimatedSection>
@@ -283,7 +231,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex overflow-hidden">
+      <div className="flex overflow-hidden" id="case">
         {['/images/image.png', '/images/image.png', '/images/image.png', '/images/image.png', '/images/image.png'].map(
           (src, index) => (
             <div

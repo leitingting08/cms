@@ -40,16 +40,18 @@ export const LinkWrapper = ({ link, children, className = '' }: any) => {
     </>
   )
 }
-
-const Menu = () => {
+interface Props {
+  isWhite? : boolean
+}
+const Menu = ({ isWhite }: Props) => {
   const pathname = usePathname()
   const { t } = useTranslation()
   const { toastError } = useToast()
   const LINK_MAP: MenuProps[] = [
     { title: 'HOME', link: '/' },
-    { title: 'PRODUCT', link: '/product' },
-    { title: 'CASE', link: '/case' },
-    { title: 'FOCUS MASS', link: '/focus' },
+    { title: 'PRODUCT', link: '/#product' },
+    { title: 'CASE', link: '/#case' },
+    { title: 'FOCUS MASS', link: '/mass' },
     { title: 'MASS FORUM', link: '/forum' },
     { title: 'NEWS', link: '/news' },
     { title: 'CONTACT US', link: LINKS.contact }
@@ -88,8 +90,8 @@ const Menu = () => {
             <div
               onMouseOver={(e) => handleClick(e, index, true, '1', children)}
               onClick={(e) => handleClick(e, index, !subOpen, link, children)}
-              className={`font-primary group-hover:text-white line-h-[6.25rem] md:text-[1.15rem] lg:text-[1.25rem] font-berlin flex-start md:flex-between px-2 md:px-6 py-3 md:p-4 md:h-[6.25rem] inline-block md:flex-center text-left ${
-                pathname === link ? 'text-white ' : 'text-[rgba(255,255,255,.5)]'
+              className={`cursor-pointer font-primary group-hover:font-bold group-hover:border-b-2 md:text-[1.15rem] lg:text-[1.25rem] font-berlin flex-start md:flex-between mx-2 md:mx-3 py-3 md:p-4 md:h-auto inline-block md:flex-center text-left ${isWhite ? 'text-black border-black': 'text-white border-white'} ${
+                pathname === link ? 'border-b-2 font-bold' : ''
               }`}
             >
               {t(title)}

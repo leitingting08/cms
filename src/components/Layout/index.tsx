@@ -7,16 +7,17 @@ import Image from 'next/image'
 interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   backTitle?: string
   hideHeader?: boolean
+  isWhite?: boolean
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false }) => {
+const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false, isWhite }) => {
   const [open, setOpen] = useState(false)
   const handleChange = (state: boolean) => {
     setOpen(state)
   }
   return (
     <div className={`text-center relative min-h-full h-full w-full`}>
-      {!hideHeader ? <PageHeader onChange={handleChange} /> : null}
+      {!hideHeader ? <PageHeader onChange={handleChange} isWhite={isWhite} /> : null}
 
       {backTitle ? (
         <div className="flex items-center pl-4 pt-6">
