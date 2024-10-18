@@ -10,12 +10,13 @@ interface PageFooterProps {
 const PageFooter: React.FC<PageFooterProps> = ({ isWhite = true }) => {
   const { t } = useTranslation()
   return (
-    <div className="relative bottom-0 left-0 w-full px-6 md:px-0 mt-10">
+    <div className="relative bottom-0 left-0 w-full px-6 md:px-0">
       <Image
         src={isWhite ? backbSrc : backSrc}
         alt="back to the top"
-        className="cursor-pointer absolute right-10 -top-10 w-10 h-10 md:w-12 md:h-12"
+        className="cursor-pointer absolute right-10 -top-16 w-10 h-10 md:w-12 md:h-12"
         onClick={() => {
+          console.log(window)
           window.scrollTo({
             left: 0,
             top: 0,
@@ -28,7 +29,12 @@ const PageFooter: React.FC<PageFooterProps> = ({ isWhite = true }) => {
           <div className="text-[#999] text-left py-4 md:py-0">
             <Image src={logoSrc} alt="logo" className="md:w-56 mb-4" />
             <div>{t('201, Building B, No. 3033, Jinxiu East Road, Pudong New Area, Shanghai')}</div>
-            <div>{t('E-Mail market@marautec.com')}</div>
+            <div className="flex">
+              <div className="mr-2">{t('E-Mail')}</div>
+              <a href="mailto:market@marautec.com" className="underline underline-offset-1">
+                market@marautec.com
+              </a>
+            </div>
             <div>{t('Phone Head Office 021-38870448')}</div>
           </div>
           <Image src={qrcodeSrc} alt="logo" className="w-36 h-36 m-auto md:m-0" />

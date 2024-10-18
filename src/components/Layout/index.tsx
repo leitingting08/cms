@@ -10,7 +10,7 @@ interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   isWhite?: boolean
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false, isWhite }) => {
+const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false, isWhite = true }) => {
   const [open, setOpen] = useState(false)
   const handleChange = (state: boolean) => {
     setOpen(state)
@@ -25,7 +25,7 @@ const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false
           <div className="text-xl ml-2 font-bold">{backTitle}</div>
         </div>
       ) : null}
-      {children}
+      <div className={`pb-12 ${isWhite ? 'bg-white' : 'bg-black'}`}>{children}</div>
       <PageFooter isWhite={isWhite} />
     </div>
   )
