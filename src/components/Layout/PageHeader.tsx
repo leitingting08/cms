@@ -1,4 +1,4 @@
-import { menudSrc, closeSrc, logoSrc, logoCSrc } from 'utils/icon'
+import { menudSrc, menudbSrc, closeBSrc, logoSrc, logoCSrc } from 'utils/icon'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'contexts/Localization'
@@ -17,12 +17,11 @@ export const PageHeader = ({ onChange, isWhite = true }: PageHeaderProps) => {
   const [showPanples, setShowPanples] = useState(false)
 
   return (
-    <div className={`relative h-20 md:h-32  z-50 ${isWhite?'bg-white text-black': 'hover:bg-black'}`}>
+    <div className={`relative h-20 md:h-32  z-50 ${isWhite ? 'bg-white text-black' : 'hover:bg-black'}`}>
       <div className="container m-auto relative">
         <div className="text-2xl flex-between h-20 md:h-32 px-4 relative">
-         
           <Image
-            src={isWhite ? logoCSrc: logoSrc}
+            src={isWhite ? logoCSrc : logoSrc}
             alt="logo"
             onClick={() => router.push('/')}
             className="cursor-pointer w-40 md:w-48 h-10 md:h-auto"
@@ -31,10 +30,10 @@ export const PageHeader = ({ onChange, isWhite = true }: PageHeaderProps) => {
             <Menu isWhite={isWhite} />
           </div>
           <div className="hidden md:block">
-            <Translate />
+            <Translate isWhite={isWhite} />
           </div>
           <Image
-            src={menudSrc}
+            src={isWhite ? menudbSrc : menudSrc}
             alt="logo"
             className="w-6 h-6 md:hidden"
             onClick={() => {
@@ -49,7 +48,7 @@ export const PageHeader = ({ onChange, isWhite = true }: PageHeaderProps) => {
         }`}
       >
         <div
-          className="fixed w-[80%] h-full bg-[#13132B] left-0 backdrop-blur-md overflow-x-hidden rouned-lg overflow-y-auto"
+          className="fixed w-full h-full bg-white !text-black left-0 backdrop-blur-md overflow-x-hidden rouned-lg overflow-y-auto"
           onClick={(e) => {
             e.preventDefault()
             setShowPanples(false)
@@ -58,18 +57,12 @@ export const PageHeader = ({ onChange, isWhite = true }: PageHeaderProps) => {
         >
           <div className="w-full h-full absolute top-0 left-0 overflow-y-auto">
             <div className="bg-wallet bg-cover flex-between px-4 py-6">
-              <Image
-                src={logoSrc}
-                alt="logo"
-                onClick={() => router.push('/')}
-                className="cursor-pointer w-40 md:w-48 h-10 md:h-auto"
-              />
-              <Image src={closeSrc} alt="" className="w-6 h-6" />
+              <Translate isWhite={true} />
+              <Image src={closeBSrc} alt="" className="w-6 h-6" />
             </div>
             <div className="relative z-10 px-4 text-left">
               <div className="text-left ml-2">
-                <Menu />
-                <Translate />
+                <Menu isWhite={true} />
               </div>
             </div>
           </div>

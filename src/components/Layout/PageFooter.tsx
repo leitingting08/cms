@@ -1,12 +1,28 @@
 import React from 'react'
-import { logoSrc, qrcodeSrc } from 'utils/icon'
+import { backSrc, backbSrc, logoSrc, qrcodeSrc } from 'utils/icon'
 import Image from 'next/image'
 import { useTranslation } from 'contexts/Localization'
 
-const PageFooter: React.FC = () => {
+interface PageFooterProps {
+  isWhite?: boolean
+}
+
+const PageFooter: React.FC<PageFooterProps> = ({ isWhite = true }) => {
   const { t } = useTranslation()
   return (
-    <div className="relative bottom-0 left-0 w-full px-6 md:px-0">
+    <div className="relative bottom-0 left-0 w-full px-6 md:px-0 mt-10">
+      <Image
+        src={isWhite ? backbSrc : backSrc}
+        alt="back to the top"
+        className="cursor-pointer absolute right-10 -top-10 w-10 h-10 md:w-12 md:h-12"
+        onClick={() => {
+          window.scrollTo({
+            left: 0,
+            top: 0,
+            behavior: 'smooth'
+          })
+        }}
+      />
       <div className="container m-auto">
         <div className="md:flex-between py-12">
           <div className="text-[#999] text-left py-4 md:py-0">

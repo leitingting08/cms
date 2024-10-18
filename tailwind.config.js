@@ -13,9 +13,7 @@ module.exports = {
         blue: '#00A3FF'
       },
       fontFamily: {
-        primary: ['primary'],
-        primaryBold: ['primaryBold'],
-        SwisBold: ['SwisBold']
+        primary: ['primary']
       }
     }
   },

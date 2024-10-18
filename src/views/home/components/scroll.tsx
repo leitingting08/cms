@@ -1,73 +1,57 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'contexts/Localization'
 import { AnimatedSection } from '../index'
+import { bg6Src } from 'utils/icon'
+import Image from 'next/image'
 
 export default function Home() {
-  const parallaxRef = useRef<any>(null)
   const { t } = useTranslation()
-  const [recordedScrollY, setRecordedScrollY] = useState(0);
+  const [selectedVideo, setSelectedVideo] = useState('normal')
 
-  useEffect(() => {
-    const parallaxWrap = parallaxRef.current
-    const parallaxItems = parallaxRef.current.querySelectorAll('.parallax-item')
-    const screenHeight = window.innerHeight
-    
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const wrapTop = parallaxWrap.getBoundingClientRect().top
-
-      parallaxItems.forEach((item: any, index: any) => {
-        if (wrapTop === 0 && !recordedScrollY) {
-            // 记录 window.scrollY 的值
-            setRecordedScrollY(scrollPosition);
-        }
-        // const newHeight = scrollPosition - recordedScrollY + screenHeight * index
-        // const newHeight = screenHeight - (scrollPosition - recordedScrollY) - screenHeight * index;
-        // console.log('index=', index, 'scrollPosition=', scrollPosition, 'recordedScrollY=', recordedScrollY)
-        // // item.style.height = wrapTop === 0 && scrollPosition > recordedScrollY + screenHeight * index ? `${newHeight}px` : `${screenHeight}px`;
-        // if(wrapTop === 0 && scrollPosition > recordedScrollY + screenHeight * index) {
-        //     item.style.height = `${newHeight < 20 ? 0: newHeight > screenHeight ? screenHeight : newHeight}px`
-        // }  else if(wrapTop > 0){ //
-        //     item.style.height = `${screenHeight}px`;
-        // } else if(wrapTop < -screenHeight) {
-        //     item.style.height = index === parallaxItems.length - 1 ? `${screenHeight}px`: '0px';
-        // }
-
-      })
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [recordedScrollY])
+  const handleSwitch = (videoType: string) => {
+    console.log(`Switching to: ${videoType}`)
+    setSelectedVideo(videoType)
+  }
 
   return (
     <div className="h-[400vh] bg-black relative">
-      {/* <div className='sticky top-0'> */}
-      <div className="parallax-wrap" ref={parallaxRef}>
+      <div className="parallax-wrap">
         <div className="parallax-item bg-black pr1 z-30">
           <div className="sticky-content">
             <div className="clip">
               <div className="bg" />
-              <div className="content container m-auto">
-                    <div className="pin">
-                    <div className="text-4xl md:text-6xl font-bold mb-8">{t('Myrun Navigation Eye')}</div>
-                    <div>
+              <div className="content container m-auto px-4 md:px-0">
+                <div className="pin">
+                  <AnimatedSection>
+                    <div className="text-4xl md:text-6xl font-bold mb-8">{t('Marautec i-EYE')}</div>
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <Image src={bg6Src} alt="" className="my-12" />
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <div className="text-xl font-bold mb-4">{t('Communicatable')}</div>
+                  </AnimatedSection>
+                  <ul className="md:flex gap-8 pl-4">
+                    <AnimatedSection>
+                      <li className="mb-8 list-disc">
                         {t(
-                        'The ship surrounding situation awareness product independently developed by MyRun Intelligent Technology'
+                          'Through data processing and compression, it can adapt to the video transmission under the condition of low communication quality, and can transmit 1080P high-definition video streams with a minimum bandwidth of 0.2Mbps;'
                         )}
-                    </div>
-                    <ul className="pt-40 md:pt-60 flex gap-8">
-                        <li className="mb-8 list-disc">
-                        {t("Through target recognition, core data processing and background compression, it can adapt to high-definition video transmission under low bandwidth conditions and transmit 1080P high-definition video streams at a minimum bandwidth of 0.2Mbps to ensure that shore personnel can see the real-time status of the ship;")}
-                        </li>
-                        <li className="list-disc">
+                      </li>
+                    </AnimatedSection>
+                    <AnimatedSection>
+                      <li className="list-disc">
                         {t(
-                          'A graded early warning mechanism can be adopted to analyze and compare various types of data, helping shore managers to better understand and manage fleet operations, effectively control risks, and ensure that the fleet can operate efficiently under the premise of safety.'
+                          'It can adapt to high-definition video transmission under low bandwidth conditions, capable of transmitting 1080P high-definition video streams at a minimum bandwidth of 0.2Mbps, ensuring that shore-side personnel can see the real-time status of the vessel.'
                         )}
-                        </li>
-                    </ul>
-                  </div>
+                      </li>
+                    </AnimatedSection>
+                  </ul>
                 </div>
+              </div>
             </div>
           </div>
         </div>
@@ -75,29 +59,73 @@ export default function Home() {
           <div className="sticky-content">
             <div className="clip">
               <div className="bg" />
-              <AnimatedSection>
-              <div className="content container m-auto">
+              <div className="content container m-auto px-4 md:px-0 overflow-y-auto">
                 <div className="pin">
-                <div className="text-4xl md:text-6xl font-bold mb-8">{t('Myrun Navigation Eye')}</div>
-                    <div>
-                        {t(
-                        'The ship surrounding situation awareness product independently developed by MyRun Intelligent Technology'
-                        )}
+                  <AnimatedSection>
+                    <div className="text-4xl md:text-6xl font-bold">{t('Marautec i-EYE')}</div>
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <div className="relative w-[80%] ml-[20%] border-2 border-white my-8 rounded-2xl">
+                      <div className="mb-2 absolute bottom-4 right-6 z-10">
+                        <div className="bg-[rgba(0,0,0.4)] flex justify-end space-x-2 rounded-xl">
+                          <button
+                            onClick={() => handleSwitch('normal')}
+                            className={`px-4 py-2 rounded-xl ${
+                              selectedVideo === 'normal' ? 'bg-[#1059D3] text-white' : 'text-[rgba(255,255,255,0.6)])]'
+                            }`}
+                          >
+                            Normal
+                          </button>
+                          <button
+                            onClick={() => handleSwitch('discern')}
+                            className={`px-4 py-2 rounded-xl ${
+                              selectedVideo === 'discern' ? 'bg-[#1059D3] text-white' : 'text-[rgba(255,255,255,0.6)])]'
+                            }`}
+                          >
+                            Discern
+                          </button>
+                        </div>
+                      </div>
+                      <div className="border rounded-2xl overflow-hidden">
+                        <video key={selectedVideo} className="w-full rounded-2xl" controls={false} autoPlay muted loop>
+                          <source
+                            src={selectedVideo === 'normal' ? '/videos/7.mp4' : '/videos/6.mp4'}
+                            type="video/mp4"
+                          />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
                     </div>
-                    <ul className="pt-40 md:pt-60 flex gap-8">
-                        <li className="mb-8 list-disc">
-                        {t("It can provide an ultra-wide viewing angle of 180°/225°/360° and high-precision target recognition within a range of up to 3-6 nautical miles, fully displaying the relative situation of the ship's surrounding environment and surrounding targets.")}
-                        </li>
-                        <li className="list-disc">
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <div className="text-xl font-bold  mb-4">{t('Comprehensive')}</div>
+                  </AnimatedSection>
+                  <ul className="md:flex gap-8 ml-4">
+                    <AnimatedSection>
+                      <li className="mb-8 list-disc">
                         {t(
-                            'It integrates AI visual perception, radar, AIS, electronic charts, environmental data and other multi-source data on one screen, comprehensively integrates and displays key information of surrounding targets, and conducts real-time monitoring and early warning of potential high-risk targets.'
+                          "The product offers an ultra-wide field of view of 180°/225°/360° and high-precision target identification within a range of 3-6 nautical miles, fully displaying the relative situation of the ship's surroundings and nearby targets, such as distance, speed, and angle."
                         )}
-                        </li>
-                        <li>{t('It overcomes the shortcomings of traditional sensing equipment, can identify "small, scattered" targets on the water surface and obstacles such as bridge piers, ensures comprehensive control of potential obstacles within the navigation safety observation range, and lays the foundation for autonomous navigation.')}</li>
-                    </ul>
+                      </li>
+                    </AnimatedSection>
+                    <AnimatedSection>
+                      <li className="list-disc">
+                        {t(
+                          'Integrated AI visual detection, radar, AIS, E-chart and environmental data from multiple sources onto one screen, comprehensively fusing and displaying key information about surrounding targets, and providing real-time monitoring and early warning for potential high-risk targets.'
+                        )}
+                      </li>
+                      <li>
+                        {t(
+                          'Overcoming the shortcomings of traditional sensing equipment, Marautec i-EYE has the ability to detect small objects on the water surface and navigational hazards such as bridge piers. This ensures comprehensive control over potential hazards within the navigational safety lookout range, thereby laying the foundation for autonomous navigation.'
+                        )}
+                      </li>
+                    </AnimatedSection>
+                  </ul>
                 </div>
               </div>
-              </AnimatedSection>
             </div>
           </div>
         </div>
@@ -105,28 +133,42 @@ export default function Home() {
           <div className="sticky-content">
             <div className="clip">
               <div className="bg" />
-              <AnimatedSection>
-              <div className="content container m-auto">
+
+              <div className="content container m-auto px-4 md:px-0">
                 <div className="pin">
-                <div className="text-4xl md:text-6xl font-bold mb-8">{t('Myrun Navigation Eye')}</div>
-                    <div>
-                        {t(
-                        'The ship surrounding situation awareness product independently developed by MyRun Intelligent Technology'
-                        )}
+                  <AnimatedSection>
+                    <div className="text-4xl md:text-6xl font-bold mb-8">{t('Marautec i-EYE')}</div>
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <div className="flex-end py-12">
+                      <video key="4" className="w-auto rounded-2xl h-[25rem]" controls={false} autoPlay muted loop>
+                        <source src={'/videos/4.mp4'} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
                     </div>
-                    <ul className="pt-40 md:pt-60">
-                        <li className="mb-8 list-disc">
-                        {t("In poor visibility conditions such as rain, fog, ice, snow or insufficient light, the visual enhancement system improves visibility and helps crew members see the surrounding conditions clearly.")}
-                        </li>
-                        <li className="list-disc">
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <div className="text-xl font-bold  mb-4">{t('Clearer')}</div>
+                  </AnimatedSection>
+                  <ul className="pl-4">
+                    <AnimatedSection>
+                      <li className="mb-8 list-disc">
+                        {t('360° panoramic view around the ship can be seen, and cover the blind areas.')}
+                      </li>
+                    </AnimatedSection>
+                    <AnimatedSection>
+                      <li className="list-disc">
                         {t(
-                            'Target rendering is performed through AI algorithm to enhance target recognition.'
+                          'In specific scenarios such as docking and undocking, entering and leaving the port, it provides real-time measurement and display of the relative status between the vessel and the shore, such as distance, speed, and angle.'
                         )}
-                        </li>
-                    </ul>
+                      </li>
+                    </AnimatedSection>
+                  </ul>
                 </div>
               </div>
-              </AnimatedSection>
             </div>
           </div>
         </div>
@@ -134,33 +176,40 @@ export default function Home() {
           <div className="sticky-content">
             <div className="clip">
               <div className="bg" />
-              <AnimatedSection>
-              <div className="content container m-auto">
+              <div className="content container m-auto px-4 md:px-0">
                 <div className="pin">
-                <div className="text-4xl md:text-6xl font-bold mb-8">{t('Myrun Navigation Eye')}</div>
-                    <div>
+                  <AnimatedSection>
+                    <div className="text-4xl md:text-6xl font-bold mb-8">{t('Marautec i-EYE')}</div>
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <div className="h-[25rem] invisible" />
+                  </AnimatedSection>
+                  <AnimatedSection>
+                    <div className="text-xl font-bold mb-4">{t('Complete')}</div>
+                  </AnimatedSection>
+                  <ul className="pl-4">
+                    <AnimatedSection>
+                      <li className="mb-8 list-disc">
+                        {t('360° panoramic view around the ship can be seen, and cover the blind areas.')}
+                      </li>
+                    </AnimatedSection>
+                    <AnimatedSection>
+                      <li className="list-disc">
                         {t(
-                        'The ship surrounding situation awareness product independently developed by MyRun Intelligent Technology'
+                          'In specific scenarios such as docking and undocking, entering and leaving the port, it provides real-time measurement and display of the relative status between the vessel and the shore, such as distance, speed, and angle.'
                         )}
-                    </div>
-                    <ul className="pt-40 md:pt-60">
-                        <li className="mb-8 list-disc">
-                        {t("360° panoramic image of the ship's surroundings, full coverage of blind spots")}
-                        </li>
-                        <li className="list-disc">
-                        {t(
-                            'In specific scenarios such as berthing, unberthing, entering and leaving the port, the relative status of the ship and its surroundings, such as distance, speed, angle, etc., is measured and displayed in real time.'
-                        )}
-                        </li>
-                    </ul>
+                      </li>
+                    </AnimatedSection>
+                  </ul>
                 </div>
               </div>
-              </AnimatedSection>
             </div>
           </div>
         </div>
       </div>
-      {/* </div> */}
     </div>
   )
 }

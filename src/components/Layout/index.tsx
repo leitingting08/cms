@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false
     setOpen(state)
   }
   return (
-    <div className={`text-center relative min-h-full h-full w-full`}>
+    <div className={`text-center relative min-h-full h-auto w-full overflow-x-hidden`}>
       {!hideHeader ? <PageHeader onChange={handleChange} isWhite={isWhite} /> : null}
 
       {backTitle ? (
@@ -26,7 +26,7 @@ const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false
         </div>
       ) : null}
       {children}
-      <PageFooter />
+      <PageFooter isWhite={isWhite} />
     </div>
   )
 }

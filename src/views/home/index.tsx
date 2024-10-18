@@ -1,12 +1,25 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Layout from 'components/Layout'
 import { useTranslation } from 'contexts/Localization'
 import Image from 'next/image'
-import { arrowbgSrc, bg2Src, startsaySrc, endsaySrc, backSrc, videoBg1Src, videoBg2Src, videoBg3Src } from 'utils/icon'
+import {
+  arrowbgSrc,
+  bg2Src,
+  bg2mSrc,
+  startsaySrc,
+  endsaySrc,
+  backSrc,
+  case1Src,
+  case2Src,
+  case3Src,
+  case4Src,
+  case5Src
+} from 'utils/icon'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/scrollbar'
-import { Autoplay, Scrollbar } from 'swiper/modules'
+import 'swiper/css/pagination'
+import { Autoplay, Scrollbar, Pagination } from 'swiper/modules'
 import Marquee from 'react-fast-marquee'
 import useInView from 'hooks/useInView'
 import MyScroll from './components/scroll'
@@ -28,99 +41,167 @@ export const AnimatedSection = ({ children, delay }: any) => {
 
 const Home: React.FC = () => {
   const { t } = useTranslation()
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
+  const [progress, setProgress] = useState([0, 0, 0])
   const videoRef = useRef<HTMLVideoElement>(null)
-
-  const newsItems = [
+  // const videos = ['/videos/5.mp4', '/videos/2.mp4', '/videos/3.mp4']
+  const source = [
     {
-      title: 'Opening The "Smart Eye" For Smart Navigation',
-      date: '2024.07.24',
-      image: '/images/news1.png'
+      video: '/videos/5.mp4',
+      title: t('Complete，Clearer, Comprehensive and Communicatable'),
+      subtitle: t('AI Visual Perception and Multi-source Data Fusion Technology')
     },
     {
-      title: 'MyRun Intelligent Technology Extends Its International Communication Reach',
-      date: '2024.02.26',
-      image: '/images/news1.png'
+      video: '/videos/2.mp4',
+      title: t('All Around Coverage All Processes All Weather Conditions All Stakeholders'),
+      subtitle: t('Autonomous Navigation Solutions')
     },
     {
-      title: 'Participated In ISO/TC8/WG10 And China-Korea Autonomous Ship Seminar',
-      date: '2023.12.28',
-      image: '/images/news1.png'
-    },
-    {
-      title: 'CCS Issues First Situational Awareness Aids To Navigation System Certificate',
-      date: '2023.12.05',
-      image: '/images/news1.png'
-    },
-    {
-      title: 'Smart Ships For MASS Consensus',
-      date: '2023.07.20',
-      image: '/images/news1.png'
+      video: '/videos/3.mp4',
+      title: t('Intuitive, Easy-to-use， Durable'),
+      subtitle: t('Alerts on High-risk Marine Targets and Assisted Ship Navigation')
     }
   ]
 
+  const handleVideoEnd = () => {
+    setProgress((prev) => {
+      const newProgress = [...prev]
+      newProgress[currentVideoIndex] = 100 // Set progress to 100% when video ends
+      return newProgress
+    })
+
+    setCurrentVideoIndex((prevIndex) => {
+      const nextIndex = (prevIndex + 1) % source.length
+      if (nextIndex === 0) {
+        // Reset progress when looping back to the first video
+        setProgress([0, 0, 0])
+      }
+      return nextIndex
+    })
+  }
+
+  const handleProgress = useCallback(() => {
+    if (videoRef?.current) {
+      const currentProgress = (videoRef.current.currentTime / videoRef.current.duration) * 100
+      setProgress((prev) => {
+        const newProgress = [...prev]
+        newProgress[currentVideoIndex] = currentProgress
+        return newProgress
+      })
+    }
+  }, [currentVideoIndex])
+
   useEffect(() => {
-    videoRef.current && videoRef.current.play()
-  }, [])
+    const videoElement = videoRef.current
+    videoElement?.addEventListener('timeupdate', handleProgress)
+    videoElement?.play()
+
+    return () => {
+      videoElement?.removeEventListener('timeupdate', handleProgress)
+    }
+  }, [handleProgress, currentVideoIndex])
+
+  const cardsItems = [
+    {
+      title: t('COSCO Shipping Lvshui 01'),
+      subtitle: '',
+      // subtitle: t(
+      //   'In specific scenarios such as berthing, unberthing, entering and leaving the port, the relative status of the ship and its surroundings, such as distance, speed, angle, etc., is measured and displayed in real time.'
+      // ),
+      image: case1Src
+    },
+    {
+      title: t('SHANGDOND NEW ERA” National Energy Group bulk carrier'),
+      image: case2Src
+    },
+    {
+      title: t('COSCO Shipping Mudanyuan'),
+      image: case3Src
+    },
+    {
+      title: t('SHENCHENG ZHIGUA'),
+      image: case4Src
+    },
+    {
+      title: t('COSCO Shipping Yuanjing'),
+      image: case5Src
+    }
+  ]
+
+  const newsItems = [
+    {
+      title: t('Opening the "smart eye" for smart navigation'),
+      date: '2024.07.24',
+      image: '/images/news/news1.png'
+    },
+    {
+      title: t('MyRun Intelligent Technology Extends Its International Communication Reach'),
+      date: '2024.02.26',
+      image: '/images/news/news2.png'
+    },
+    {
+      title: t('Participated In ISO/TC8/WG10 And China-Korea Autonomous Ship Seminar'),
+      date: '2023.12.28',
+      image: '/images/news/news3.png'
+    },
+    {
+      title: t('CCS Issues First Situational Awareness Aids To Navigation System Certificate'),
+      date: '2023.12.05',
+      image: '/images/news/news4.png'
+    },
+    {
+      title: t('Smart Ships For MASS Consensus'),
+      date: '2023.07.20',
+      image: '/images/news/news4.png'
+    }
+  ]
 
   return (
     <Layout isWhite={false}>
       <div className="relative w-ful -mt-20 md:-mt-32 h-[calc(100vh-3rem)]">
-          <video
-            ref={videoRef} 
-            preload="true"
-            loop={true}
-            autoPlay={true}
-            playsInline={true}
-            controls={false}
-            muted={true}
-            // width={1920} 
-            // height={1080}
-            className="relative top-0 left-0 w-full h-[100vh] object-cover"  
-          >
-            <img alt="" src={videoBg1Src} className='w-full h-full' />
-            <source src="videos/5.mp4" />
-          </video>
+        <video
+          ref={videoRef}
+          src={source[currentVideoIndex].video}
+          onEnded={handleVideoEnd}
+          preload="true"
+          loop={false}
+          autoPlay={true}
+          playsInline={true}
+          controls={false}
+          muted={true}
+          className="relative top-0 left-0 w-full h-[100vh] object-cover"
+        />
+        <div className="flex space-x-2 mt-4 w-[16rem] absolute bottom-10 left-[50%] -translate-x-[50%] z-10">
+          {progress.map((prog, index) => (
+            <div key={index} className="flex-1 bg-[rgba(0,0,0,.4)] h-1 rounded-sm">
+              <div className="bg-white h-1 rounded" style={{ width: `${prog}%` }}></div>
+            </div>
+          ))}
+        </div>
         <div className="absolute top-0 left-0 w-full h-full">
           <Image
             src={arrowbgSrc}
             className="absolute bottom-8 md:bottom-16 right-8 md:right-16 arrowScroll w-8"
             alt=""
           />
-          <div className="container m-auto text-left pt-[40rem]">
+          <div className="container m-auto text-left py-80 px-4 md:px-0">
             <AnimatedSection>
-              <div className="text-4xl md:text-7xl overflow-hidden w-[50rem]">
-                <div>
-                  {t('Complete，Clearer, Comprehensive and Communicatable')}
-                </div>
+              <div className="text-4xl md:text-7xl overflow-hidden md:w-[50rem]">
+                <div>{source[currentVideoIndex].title}</div>
               </div>
-              </AnimatedSection>
-              <AnimatedSection delay={1000}>
+            </AnimatedSection>
+            <AnimatedSection delay={1000}>
               <div className="text-xl md:text-2xl overflow-hidden">
-                <div>
-                  {t('AI Visual Perception and Multi-source Data Fusion Technology')}
-                </div>
+                <div>{source[currentVideoIndex].subtitle}</div>
               </div>
             </AnimatedSection>
           </div>
-          {/* <div className="w-[86%] md:w-auto">
-            <div className="text-4xl md:text-7xl h-[90px] overflow-hidden">
-              <div className="-translate-y-[100%] animate-slide-in-bottom animation-delay-2000">
-                {t('Comprehensive, entire process, all shared')}
-              </div>
-            </div>
-            <hr className="h-[1px] my-4 animate-width bg-white" />
-            <div className="text-xl md:text-2xl h-[90px] overflow-hidden">
-              <div className="-translate-y-[100%] animate-slide-in-top animation-delay-2000">
-                {t('Intelligent navigation solutions for MASS')}
-              </div>
-            </div>
-          </div> */}
         </div>
-        <div className="bg-[rgba(12,35,136,0.7)] h-[3.125rem] flex items-center">
+        <div className="bg-[rgba(12,35,136,0.7)] h-[3.125rem] md:flex-center -mt-[3.125rem] relative z-10">
           <div className="bg-[#1059D3] h-full px-4 flex-center">{t('NEWS')}</div>
-          <div className="w-full px-4 h-[3.125rem] overflow-hidden bg-[rgba(12,35,136,0.7)]">
+          <div className="w-full px-4 md:h-[3.125rem] overflow-hidden bg-[rgba(12,35,136,0.7)]">
             <Swiper
-              className="mx-4 h-[3.125rem] overflow-hidden"
+              className="mx-4 h-[6rem] md:h-[3.125rem] overflow-hidden"
               direction="vertical"
               autoplay={{
                 delay: 2000,
@@ -129,12 +210,12 @@ const Home: React.FC = () => {
               loop={true}
               modules={[Autoplay]}
             >
-              <SwiperSlide className="md:w-full text-left leading-[3.125rem] whitespace-nowrap text-ellipsis w-[60%] text-[#BCD5FF]">
+              <SwiperSlide className="w-full text-left md:leading-[3.125rem] md:whitespace-nowrap md:text-ellipsis text-[#BCD5FF] py-3 md:py-0">
                 {t(
                   '2024/12/18    Won the first and only visual situational awareness assisted navigation system principle approval certificate issued by CCS in China'
                 )}
               </SwiperSlide>
-              <SwiperSlide className="md:w-full text-left leading-[3.125rem] whitespace-nowrap text-ellipsis w-[60%]text-[#BCD5FF]">
+              <SwiperSlide className="w-full text-left md:leading-[3.125rem] md:whitespace-nowrap md:text-ellipsis text-[#BCD5FF] py-3 md:py-0">
                 {t(
                   '2023/12/18    Won the first and only visual situational awareness assisted navigation system principle approval certificate issued by CCS in China'
                 )}
@@ -144,50 +225,68 @@ const Home: React.FC = () => {
         </div>
       </div>
       <div className="w-full bg-white pt-32 pb-20 md:pb-40">
-        <div className="container m-auto relative md:flex-between px-6 md:px-0">
-          <Image src={bg2Src} className="h-72 absolute top-16 left-0" alt="bg" />
+        <div className="container m-auto relative md:flex-between px-6 md:px-0 py-12 md:py-0">
+          <Image src={bg2Src} className="w-auto h-[20rem] md:h-72 absolute top-16 left-0 hidden md:block" alt="bg" />
+          <Image
+            src={bg2mSrc}
+            className="h-auto w-60 absolute top-16 left-[50%] -translate-x-[50%] md:hidden"
+            alt="bg"
+          />
           <div className="text-[#1059D3]">
             <AnimatedSection>
-              <div className="text-5xl md:text-9xl">{t('About us')}</div>
-              <div>{t('Mairun Intelligent Technology (Shanghai) Co., Ltd. ')}</div>
+              <div className="text-5xl md:text-9xl uppercase font-bold text-left">{t('About us')}</div>
+              <div className="text-xl font-bold text-left">
+                {t('Mairun Intelligent Technology (Shanghai) Co., Ltd. ')}
+              </div>
             </AnimatedSection>
           </div>
-          <div className="text-[#000] md:w-[40rem] text-left mt-20 md:mt-0">
+          <div className="text-[#000] md:w-[40rem] text-left mt-8 md:mt-0">
             <AnimatedSection>
               <p>
                 {t(
-                  'Was established in 2018. It is the first high-tech and specialized enterprise in China that focuses on the application of artificial intelligence visual perception in the field of intelligent navigation. It provides situational awareness and ship-shore communication solutions for ship intelligent navigation.'
+                  'Specialised in AI enabled visual detection and data fusion technology for maritime industries, Marautec is a leading provider in situational awareness for navigation safety and Maritime Autonomous Surface Ships (MASS).'
                 )}
               </p>
             </AnimatedSection>
             <AnimatedSection>
               <p className="py-10">
                 {t(
-                  'The company has developed algorithms for many different application scenarios to provide users with safe, efficient and innovative visual intelligent products and full-process solutions. The core technology R&D team accounts for more than 65%, with strong R&D innovation and application capabilities.'
+                  `Based on integrated data from AI visual detection technology, Radar, AIS, E-chart, and other sensors, Marautec's navigation assistant system, Marautec i-EYE, presents an intuitive, easy-to-use interface to provide a clear, complete and comprehensive view on surrounding situation in all processes for all types of ships in all weather conditions, not only effectively improving navigation safety, but also becoming an essential part for MASS.`
                 )}
               </p>
             </AnimatedSection>
             <AnimatedSection>
               <p>
                 {t(
-                  `Mairun Intelligent Technology's product "Mairun Navigation Eye" effectively solves the perception pain points in the shipping and maritime fields through artificial intelligence technology, and fills the perception defects of existing ship intelligent navigation. It can not only provide ships with situational awareness "visible, clear, full, and visible" system functions, provide ships with assisted driving and safety warning functions, but also meet the "full view, all-weather, full process, and full sharing" requirements for future autonomous driving.`
+                  `Marautec i-EYE has now covered functions from berthing to navigation, from enhanced visibilities to sea shore realtime visual communication on most ship types, and has received favorable feedback from leading clients.`
                 )}
               </p>
             </AnimatedSection>
           </div>
         </div>
       </div>
-     <div id='product'>
-      <MyScroll />
-     </div>
+      <div id="product">
+        <MyScroll />
+      </div>
       <div className="w-full bg-white text-black">
-        <div className="container m-auto relative md:flex-between text-left px-6 md:px-0">
+        <div className="container m-auto relative md:flex-between text-left px-4 md:px-0 pb-12">
           <AnimatedSection>
-            <div className="text-4xl md:text-8xl md:w-[40rem] mb-8 pt-6">{t('Myrun Navigation Eye')}</div>
-            <div className="md:w-[44rem]">
-              {t(
-                `From its birth to commercialization, the products of MyRun Intelligent Technology are closely linked to the safety of ship driving. Today, many captains use "MyRun Navigation Eye" every day. Let's listen to their stories.`
-              )}
+            <div className="text-5xl pr-28 md:pr-0 md:text-8xl md:w-[40rem] mb-8 pt-6 font-bold">
+              {t('Marautec i-EYE')}
+            </div>
+            <div className="hidden md:block">
+              <div className="md:w-[44rem]">
+                {t(
+                  `From inception to commercialization, Marautec i-EYE has been closely related to the safety of ship driving. Today, many captains use Marautec i-EYE daily , let's listen to their stories.`
+                )}
+              </div>
+              <video
+                className="w-full h-[25.5rem] my-8"
+                preload="true"
+                autoPlay={true}
+                controls={true}
+                src="/videos/3.mp4"
+              />
             </div>
           </AnimatedSection>
           <div className="md:w-[48rem] py-10 md:ml-10">
@@ -195,10 +294,10 @@ const Home: React.FC = () => {
               <Image src={startsaySrc} alt="start" className="absolute top-4 left-6 w-10 md:w-12" />
               <Image src={endsaySrc} alt="end" className="absolute bottom-4 right-6 w-10 md:w-12" />
               <AnimatedSection>
-                <div className="text-[#1059D3] text-4xl md:text-6xl font-bold ml-6 uppercase">{t('Useful')}</div>
+                <div className="text-[#1059D3] text-4xl md:text-6xl font-bold ml-6 uppercase">{t('Intuitive')}</div>
                 <div>
                   {t(
-                    'In inland coastal areas, radar and AIS systems often face the problem of insufficient recognition rate due to complex environment and target interference. MyRun Navigation Smart Eye can significantly improve the accuracy of target recognition through its excellent visual perception ability, thereby enhancing the safety of navigation.'
+                    'In inland and coastal areas, due to complex environments and target interference, radar and AIS often face insufficient identification rates. Marautec i-EYE, with its excellent visual perception capabilities, can significantly improve the accuracy of target identification, thereby enhancing the safety of navigation'
                   )}
                 </div>
               </AnimatedSection>
@@ -207,10 +306,10 @@ const Home: React.FC = () => {
               <Image src={startsaySrc} alt="start" className="absolute top-4 left-6 w-10 md:w-12" />
               <Image src={endsaySrc} alt="end" className="absolute bottom-4 right-6 w-10 md:w-12" />
               <AnimatedSection>
-                <div className="text-[#1059D3] text-4xl md:text-6xl font-bold ml-6 uppercase">{t('EASY')}</div>
+                <div className="text-[#1059D3] text-4xl md:text-6xl font-bold ml-6 uppercase">{t('Easy-to-use')}</div>
                 <div>
                   {t(
-                    'Provide intuitive and concise real-time images, low-latency system response speed real-time images, provide clear and intuitive decision-making support for crew members, and reduce the labor intensity of crew members'
+                    'Providing intuitive and real-time imagery, with low-latency system response speeds for real-time images, offering clear and intuitive decision support for crew members and reducing their labor intensity.'
                   )}
                 </div>
               </AnimatedSection>
@@ -219,91 +318,109 @@ const Home: React.FC = () => {
               <Image src={startsaySrc} alt="start" className="absolute top-4 left-6 w-10 md:w-12" />
               <Image src={endsaySrc} alt="end" className="absolute bottom-4 right-6 w-10 md:w-12" />
               <AnimatedSection>
-                <div className="text-[#1059D3] text-4xl md:text-6xl font-bold ml-6 uppercase">{t('durable')}</div>
+                <div className="text-[#1059D3] text-4xl md:text-6xl font-bold ml-6 uppercase">{t('Durable')}</div>
                 <div>
                   {t(
-                    'Provide intuitive and concise real-time images, low-latency system response speed real-time images, provide clear and intuitive decision-making support for crew members, and reduce the labor intensity of crew members'
+                    'Marautec i-EYE can maintain high performance and stability under various harsh conditions, ensuring long-term reliability and low maintenance requirements, which is crucial for maritime equipment operating under extreme conditions.'
                   )}
                 </div>
               </AnimatedSection>
             </div>
           </div>
+          <div className="md:hidden">
+            <div className="md:w-[44rem]">
+              {t(
+                `From inception to commercialization, Marautec i-EYE has been closely related to the safety of ship driving. Today, many captains use Marautec i-EYE daily , let's listen to their stories.`
+              )}
+            </div>
+            <video
+              className="w-full h-[20rem] my-8"
+              preload="true"
+              autoPlay={true}
+              controls={true}
+              src="/video/3.mp4"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="flex overflow-hidden" id="case">
-        {['/images/image.png', '/images/image.png', '/images/image.png', '/images/image.png', '/images/image.png'].map(
-          (src, index) => (
-            <div
-              key={index}
-              className="relative flex-1 transition-all duration-500 hover:flex-[4] hover:z-10 h-[40rem]"
-            >
-              <Image
-                src={src}
-                alt={`Image ${index + 1}`}
-                className="w-full h-full object-cover"
-                width={590}
-                height={540}
-              />
-              <div className="absolute bottom-0 left-0 p-4 text-white bg-black bg-opacity-50">
-                <p>Description {index + 1}</p>
-              </div>
+      <Swiper
+        className="md:flex overflow-hidden md:h-[40rem] h-[100vh]"
+        id="case"
+        slidesPerView={1}
+        modules={[Pagination]}
+      >
+        {cardsItems.map((item, index) => (
+          <SwiperSlide
+            key={index}
+            className="relative md:flex-1 duration-700 ease-in-out md:hover:flex-[4] md:hover:z-10 md:h-[40rem] h-[100vh] transition-all"
+          >
+            <Image
+              src={item.image}
+              alt={`Image ${index + 1}`}
+              className="w-full h-full object-cover transition-all duration-700 ease-in-out"
+              width={590}
+              height={540}
+            />
+            <div className="absolute bottom-0 left-0 p-4 text-white text-left pb-10">
+              <p className="text-3xl md:text-5xl">{item.title}</p>
+              <p className="text-base md:text-lg mt-8">{item.subtitle}</p>
             </div>
-          )
-        )}
-      </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
       <div className="bg-[#00296C] text-white py-40 bg bg4 bg-cover">
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 text-center max-h-[100vh] overflow-y-auto">
           <AnimatedSection>
             <h2 className="text-3xl font-bold mb-20">{t('Why Choose Us')}</h2>
           </AnimatedSection>
-          <AnimatedSection>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-20">
-              <div>
-                <h3 className="text-4xl font-bold">20+</h3>
-                <p className="mt-2">{t('Research & Development For More Than 20 Years')}</p>
-                <p className="text-sm mt-1">
-                  {t('We have provided customers with a variety of application scenario solutions.')}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-4xl font-bold">100%</h3>
-                <p className="mt-2">{t('Improvement In Docking & Navigation Safety')}</p>
-                <p className="text-sm mt-1">{t(`Captains' comments on MyRun Marine Eye.`)}</p>
-              </div>
-              <div>
-                <h3 className="text-4xl font-bold">{t('No.1')}</h3>
-                <p className="mt-2">{t('No.1 In The Industry In Navigation Data')}</p>
-                <p className="text-sm mt-1">
-                  {t('Accumulated a large amount of surface navigation data and application scenarios.')}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-4xl font-bold">{t('7 DAYS')}</h3>
-                <p className="mt-2">{t('Installation & Commissioning Time')}</p>
-                <p className="text-sm mt-1">
-                  {t('Product modularization, flexible and fast installation and commissioning cycle.')}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-4xl font-bold">7 * 24</h3>
-                <p className="mt-2">{t('Professional Team Service Around The Clock')}</p>
-                <p className="text-sm mt-1">{t('Professional team responds quickly throughout the project cycle.')}</p>
-              </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-20">
+            <div>
+              <h3 className="text-4xl font-bold">20+</h3>
+              <p className="mt-2">
+                {t(
+                  'We have been deeply engaged in the industry for more than 20 years, providing customers with a variety of application scenario solutions.'
+                )}
+              </p>
             </div>
-          </AnimatedSection>
+            <div>
+              <h3 className="text-4xl font-bold">100%</h3>
+              <p className="mt-2">{t('All captains endorse berthing and navigation systems on safety improvement')}</p>
+            </div>
+            <div>
+              <h3 className="text-4xl font-bold">{t('No.1')}</h3>
+              <p className="mt-2">
+                {t('A large number of surface navigation data and application scenarios have been accumulated')}
+              </p>
+            </div>
+            <div>
+              <h3 className="text-4xl font-bold">{t('7 DAYS')}</h3>
+              <p className="mt-2">
+                {t(
+                  'The products are modular, with a flexible and fast installation period, and on average, installation and commissioning can be completed in 7 days.'
+                )}
+              </p>
+            </div>
+            <div>
+              <h3 className="text-4xl font-bold">7 * 24</h3>
+              <p className="mt-2">
+                {t('A professional service team with rapid response throughout the entire project lifecycle.')}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       <div className="bg-white py-6">
-        <Marquee speed={20} gradientWidth={0} className="relative">
-          {new Array(100).fill(' ').map((item, index) => {
+        <Marquee speed={10} gradientWidth={0} className="relative">
+          {new Array(10).fill(' ').map((item, index) => {
             return (
               <Image
                 key={index}
-                src="/images/logo1.png"
+                src={`/images/logos/logo${index + 1}.png`}
                 width={300}
                 height={200}
-                className="w-[10rem] ml-8"
+                className="w-auto h-[4rem] md:h-[6rem] md:my-4 ml-8"
                 alt="logo"
               />
             )
@@ -312,7 +429,7 @@ const Home: React.FC = () => {
       </div>
       <div className="bg-white w-full">
         <div className="container mx-auto px-4 py-8">
-          <h2 className="text-2xl font-bold mb-4">News &rarr;</h2>
+          <h2 className="text-2xl md:text-5xl mb-4 md:mb-8 text-black text-left">News &rarr;</h2>
           <Swiper
             modules={[Scrollbar]}
             slidesPerView={4.2}
@@ -328,10 +445,10 @@ const Home: React.FC = () => {
                   alt={item.title}
                   height={160}
                   width={320}
-                  className="w-full h-40 object-cover"
+                  className="w-full h-40 md:h-52 object-cover"
                 />
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-black">{item.title}</h3>
+                <div className="p-4 text-left">
+                  <h3 className="text-lg font-semibold text-black mb-4">{item.title}</h3>
                   <p className="text-sm text-gray-500 pb-20">{item.date}</p>
                 </div>
               </SwiperSlide>
@@ -343,14 +460,16 @@ const Home: React.FC = () => {
       <div className="md:flex w-full mx-auto">
         <div className="flex-1 bg-[#1059D3] text-white p-8 py-20">
           <AnimatedSection>
-            <h2 className="text-4xl font-bold">{t('MISSION')}</h2>
-            <p className="mt-4 text-lg">{t('Leading smart shipping & Ensuring shipping safety')}</p>
+            <h2 className="text-4xl font-bold uppercase">{t('MISSION')}</h2>
+            <p className="mt-4 text-lg">{t('SmartShipping, DigitalOcean')}</p>
           </AnimatedSection>
         </div>
         <div className="flex-1 bg-white text-black p-8 py-20">
           <AnimatedSection>
-            <h2 className="text-4xl font-bold text-gray-300">{t('VISION')}</h2>
-            <p className="mt-4 text-lg">{t('Become a global leader in intelligent ship navigation')}</p>
+            <h2 className="text-4xl font-bold text-gray-300 uppercase">{t('Aspiration')}</h2>
+            <p className="mt-4 text-lg">
+              {t('Aspires to be a global leader in navigation safety and autonomous shipping')}
+            </p>
           </AnimatedSection>
         </div>
       </div>
@@ -365,62 +484,41 @@ const Home: React.FC = () => {
               </button>
             </AnimatedSection>
           </div>
-          <div className="flex-1 bg-black text-gray-400 p-8 overflow-y-auto max-h-96 text-left relative mask-gradient">
-            {/* <div
-              className="w-full h-full fixed top-0 left-0"
-              style={{
-                background:
-                  'linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, #ACACAC 48.5%, rgba(115, 115, 115, 0) 100%);'
-              }}
-            /> */}
+          <div className="flex-1 bg-black text-gray-400 p-8 overflow-y-auto max-h-[30rem] text-left relative mask-gradient py-20">
             <div className="space-y-8">
+              <div>
+                <h3 className="text-xl font-bold text-gray-300">2018</h3>
+                <p>{t('Marautec was established.')}</p>
+              </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-300">2019</h3>
                 <p>
                   {t(
-                    'Released the first generation of products: 360° panoramic berthing and unberthing assistance system, navigation safety assistance system.'
+                    'Released the first generation of products :360° panoramic Berthing Assistant System, Navigation Safety Assistant system.'
                   )}
                 </p>
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-300">2020</h3>
                 <p>
-                  {t(
-                    'The first commercial ship Huangpu River "Shencheng Light" was officially put into use. Won the first prize in the smart transportation special competition of the third "Zhanhua Cup" 5G application collection competition.'
-                  )}
+                  {t('The first commercial ship on the Huangpu River, "SHENCHENGZHIGUA", was officially put into use.')}
                 </p>
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-300">2021</h3>
-                <p>
-                  {t(
-                    `"Meirun Navigation Eye" is officially released. Awarded as Shanghai High-tech Enterprise and won the Excellence Award in the 3rd Central Enterprise Yixing Innovation and Creativity Competition.`
-                  )}
-                </p>
+                <p>{t(`"Marautec i-EYE" was officially released.`)}</p>
               </div>
               <div>
-                <h3 className="text-xl font-bold text-gray-300">2022</h3>
+                <h3 className="text-xl font-bold text-gray-300">2023</h3>
                 <p>
                   {t(
-                    'Won the title of Shanghai Specialized, Refined and New Enterprise. Selected as one of the "Autonomous Driving and Pilot Projects" application projects of the Ministry of Transport.'
+                    'Received the first Principle of Approval for Visual Situation Awareness Assisted Navigation System issued by CCS.'
                   )}
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <Image
-          src={backSrc}
-          alt="back to the top"
-          className="cursor-pointer absolute right-10 bottom-0 w-10 h-10 md:w-16 md:h-16"
-          onClick={() => {
-            window.scrollTo({
-              left: 0,
-              top: 0,
-              behavior: 'smooth'
-            })
-          }}
-        />
       </div>
     </Layout>
   )

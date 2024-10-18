@@ -41,7 +41,7 @@ export const LinkWrapper = ({ link, children, className = '' }: any) => {
   )
 }
 interface Props {
-  isWhite? : boolean
+  isWhite?: boolean
 }
 const Menu = ({ isWhite }: Props) => {
   const pathname = usePathname()
@@ -54,7 +54,7 @@ const Menu = ({ isWhite }: Props) => {
     { title: 'FOCUS MASS', link: '/mass' },
     { title: 'MASS FORUM', link: '/forum' },
     { title: 'NEWS', link: '/news' },
-    { title: 'CONTACT US', link: LINKS.contact }
+    { title: 'CONTACT US', link: '/contact' }
   ]
   const [lists, setLists] = useState<MenuProps[]>(LINK_MAP)
 
@@ -90,9 +90,9 @@ const Menu = ({ isWhite }: Props) => {
             <div
               onMouseOver={(e) => handleClick(e, index, true, '1', children)}
               onClick={(e) => handleClick(e, index, !subOpen, link, children)}
-              className={`cursor-pointer font-primary group-hover:font-bold group-hover:border-b-2 md:text-[1.15rem] lg:text-[1.25rem] font-berlin flex-start md:flex-between mx-2 md:mx-3 py-3 md:p-4 md:h-auto inline-block md:flex-center text-left ${isWhite ? 'text-black border-black': 'text-white border-white'} ${
-                pathname === link ? 'border-b-2 font-bold' : ''
-              }`}
+              className={`cursor-pointer font-primary group-hover:font-bold group-hover:border-b-2 md:text-[1.15rem] lg:text-[1.25rem] font-berlin flex-start md:flex-between mx-2 md:mx-3 py-3 md:p-4 md:h-auto inline-block md:flex-center text-left ${
+                isWhite ? 'text-black border-black' : 'text-white border-white'
+              } ${pathname === link ? 'border-b-2 font-bold' : ''}`}
             >
               {t(title)}
             </div>

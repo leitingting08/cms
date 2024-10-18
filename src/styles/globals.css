@@ -8,7 +8,7 @@
   }
   html,
   body {
-    @apply bg-black m-0 p-0 text-white font-primary w-full h-full;
+    @apply bg-black m-0 p-0 text-white font-primary w-full h-full overflow-x-hidden;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -32,6 +32,7 @@
     height: 100%;
     contain: paint;
     transition: all 0.1s linear;
+    
   }
 
   .parallax-item .clip {
@@ -48,41 +49,47 @@
     height: 100vh;
   }
 
+  
+  .listdisc::before {
+    content: '';
+    display: inline-block;
+    width: 0.5rem; /* 点的宽度 */
+    height: 0.5rem; /* 点的高度 */
+    background-color: black; /* 点的颜色 */
+    border-radius: 50%; /* 圆形 */
+    position: absolute;
+    margin-left: -1.25rem;
+    margin-top: 0rem;
+ }
+
   .parallax-item.pr1 .bg {
-    background: url('/images/bg1.png') no-repeat center/cover;
+    background: url('/images/home/bg1.png') no-repeat center/cover;
   }
 
   .parallax-item.pr2 .bg {
-    background: url('/images/bg2.png') no-repeat center/cover;
+    background: url('/images/home/bg2.png') no-repeat center/cover;
   }
 
   .parallax-item.pr3 .bg {
-    background: url('/images/bg3.png') no-repeat center/cover;
+    background: url('/images/home/bg3.png') no-repeat center/cover;
   }
 
   .parallax-item.pr4 .bg {
-    background: url('/images/bg4.png') no-repeat center/cover;
+    background: url('/images/home/bg4.png') no-repeat center/cover;
   }
 
   .parallax-item .content {
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 
   .parallax-item .content .pin {
-    position: sticky;
-    top: 0;
     text-align: left;
-    box-sizing: border-box;
   }
 
   .parallax-item .txt-wrap {
@@ -91,15 +98,6 @@
     flex-direction: column;
   }
 
-  .parallax-item .txt-wrap .tit {
-    font-size: min(3.125vw, 60px);
-    line-height: min(4.75vw, 91.2px);
-  }
-
-  .parallax-item .txt-wrap .desc {
-    margin-top: min(1.25vw, 24px);
-    font-weight: 300;
-  }
 
   .mask-gradient {
     mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
