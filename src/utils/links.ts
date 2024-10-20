@@ -1,4 +1,4 @@
 const LINKS = {
-  contact: ''
+  download: ''
 }
 export default LINKS

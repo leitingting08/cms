@@ -23,6 +23,7 @@ import { Autoplay, Scrollbar, Pagination } from 'swiper/modules'
 import Marquee from 'react-fast-marquee'
 import useInView from 'hooks/useInView'
 import MyScroll from './components/scroll'
+import Link from 'next/link'
 
 export const AnimatedSection = ({ children, delay }: any) => {
   const [ref, inView] = useInView()
@@ -500,10 +501,12 @@ const Home: React.FC = () => {
           <div className="flex-1 bg-black text-white p-8">
             <AnimatedSection>
               <h2 className="text-4xl md:text-8xl font-bold text-left w-[30rem]">{t('JOIN US NOW!')}</h2>
-              <button className="mt-8 px-6 py-3 bg-white text-black font-semibold rounded-full flex items-center">
-                {t('Contact Us')}
-                <span className="ml-2 bg-black text-white rounded-full inline-block w-8 h-8 leading-8">→</span>
-              </button>
+              <Link href="/contact">
+                <button className="mt-8 px-6 py-3 bg-white text-black font-semibold rounded-full flex items-center">
+                  {t('Contact Us')}
+                  <span className="ml-2 bg-black text-white rounded-full inline-block w-8 h-8 leading-8">→</span>
+                </button>
+              </Link>
             </AnimatedSection>
           </div>
           <div className="flex-1 bg-black text-gray-400 p-8 overflow-y-auto max-h-[30rem] text-left relative mask-gradient py-20">

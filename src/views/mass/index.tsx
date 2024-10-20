@@ -205,7 +205,7 @@ const Home: React.FC = () => {
                 </AnimatedSection>
                 <div>
                   <AnimatedSection>
-                    <a href={LINKS.contact}>
+                    <a href={LINKS.download} target="_blank" rel="noreferrer">
                       <button
                         className={`group mt-8 px-6 py-3 bg-white text-black font-semibold rounded-full flex items-center border border-[#BEBEBE] hover:bg-black hover:text-white`}
                       >
