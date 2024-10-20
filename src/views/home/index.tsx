@@ -199,7 +199,7 @@ const Home: React.FC = () => {
         </div>
         <div className="bg-[rgba(12,35,136,0.7)] h-[3.125rem] md:flex-center -mt-[3.125rem] relative z-10">
           <div className="bg-[#1059D3] h-full px-4 flex-center">{t('NEWS')}</div>
-          <div className="w-full px-4 md:h-[3.125rem] overflow-hidden bg-[rgba(12,35,136,0.7)]">
+          <div className="w-full px-4 md:h-[3.125rem] overflow-hidden bg-[rgba(12,35,136,0.7)] flex-1">
             <Swiper
               className="mx-4 h-[6rem] md:h-[3.125rem] overflow-hidden"
               direction="vertical"
@@ -343,32 +343,54 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
+      <div className="relative">
+        <Swiper
+          className="md:flex overflow-hidden md:h-[40rem] h-[100vh]"
+          id="case"
+          slidesPerView={1}
+          modules={[Pagination]}
+          pagination={{ clickable: true, el: '.swiper-pagination' }}
+        >
+          {cardsItems.map((item, index) => (
+            <SwiperSlide
+              key={index}
+              className="relative md:flex-1 duration-700 ease-in-out md:hover:flex-[4] md:hover:z-10 md:h-[40rem] h-[100vh] transition-all"
+            >
+              <Image
+                src={item.image}
+                alt={`Image ${index + 1}`}
+                className="w-full h-full object-cover transition-all duration-700 ease-in-out"
+                width={590}
+                height={540}
+              />
+              <div className="absolute bottom-0 left-0 p-4 text-white text-left pb-10">
+                <p className="text-3xl md:text-5xl">{item.title}</p>
+                <p className="text-base md:text-lg mt-8">{item.subtitle}</p>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-      <Swiper
-        className="md:flex overflow-hidden md:h-[40rem] h-[100vh]"
-        id="case"
-        slidesPerView={1}
-        modules={[Pagination]}
-      >
-        {cardsItems.map((item, index) => (
-          <SwiperSlide
-            key={index}
-            className="relative md:flex-1 duration-700 ease-in-out md:hover:flex-[4] md:hover:z-10 md:h-[40rem] h-[100vh] transition-all"
-          >
-            <Image
-              src={item.image}
-              alt={`Image ${index + 1}`}
-              className="w-full h-full object-cover transition-all duration-700 ease-in-out"
-              width={590}
-              height={540}
-            />
-            <div className="absolute bottom-0 left-0 p-4 text-white text-left pb-10">
-              <p className="text-3xl md:text-5xl">{item.title}</p>
-              <p className="text-base md:text-lg mt-8">{item.subtitle}</p>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        <div className="swiper-pagination !absolute !bottom-8 !left-[50%] !-translate-x-[50%] !flex !justify-center !space-x-2"></div>
+        <style jsx global>
+          {`
+            .swiper-pagination-bullet {
+              width: 20px !important;
+              height: 4px !important;
+              background-color: #fff !important;
+              opacity: 0.4 !important;
+              margin: 0 5px !important;
+              border-radius: 2px !important;
+            }
+
+            .swiper-pagination-bullet-active {
+              background-color: #fff !important; /* white */
+              opacity: 1 !important;
+            }
+          `}
+        </style>
+      </div>
+      {/* <div className="swiper-pagination flex justify-center space-x-2 mt-4"></div> */}
       <div className="bg-[#00296C] text-white py-40 bg bg4 bg-cover">
         <div className="container mx-auto px-4 text-center max-h-[100vh] overflow-y-auto">
           <AnimatedSection>
@@ -506,7 +528,7 @@ const Home: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-300">2021</h3>
-                <p>{t(`"Marautec i-EYE" was officially released.`)}</p>
+                <p>{t('Marautec i-EYE was officially released.')}</p>
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-300">2023</h3>

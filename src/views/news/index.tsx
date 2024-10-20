@@ -66,8 +66,8 @@ const Home: React.FC = () => {
                 <div className="bg-white rounded-lg mb-4 overflow-hidden animate-slide-in-bottom">
                   <Image src={item.image} alt={item.title} className="w-full h-48 object-cover" />
                   <div className="p-4">
-                    <p className="text-sm text-gray-500">{t('item.date')}</p>
-                    <h2 className="text-lg font-semibold">{t('item.title')}</h2>
+                    <p className="text-sm text-gray-500">{t(item.date)}</p>
+                    <h2 className="text-lg font-semibold">{t(item.title)}</h2>
                   </div>
                 </div>
               </Link>

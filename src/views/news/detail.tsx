@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Layout from 'components/Layout'
 import { useTranslation } from 'contexts/Localization'
 import Image from 'next/image'
-import { news0Src } from 'utils/icon'
+import { news0Src, prevSrc } from 'utils/icon'
 
 const Home: React.FC = () => {
   const { t } = useTranslation()
@@ -58,8 +58,14 @@ const Home: React.FC = () => {
 
           {/* Navigation */}
           <div className="flex justify-between mt-10">
-            <button className="text-blue-500 hover:underline">Previous</button>
-            <button className="text-blue-500 hover:underline">Next</button>
+            <div className="flex">
+              <Image src={prevSrc} alt="" />
+              <button className="text-blue-500 hover:underline ml-2">Previous</button>
+            </div>
+            <div className="flex">
+              <button className="text-blue-500 hover:underline mr-2">Next</button>
+              <Image src={prevSrc} alt="" className="rotate-180" />
+            </div>
           </div>
         </div>
       </div>

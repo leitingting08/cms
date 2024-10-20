@@ -68,29 +68,36 @@ export default function Home() {
                     <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
                   </AnimatedSection>
                   <AnimatedSection>
-                    <div className="relative w-[80%] ml-[20%] border-2 border-white my-8 rounded-2xl">
-                      <div className="mb-2 absolute bottom-4 right-6 z-10">
-                        <div className="bg-[rgba(0,0,0.4)] flex justify-end space-x-2 rounded-xl">
+                    <div className="relative md:w-[80%] md:ml-[20%] border-2 border-white my-8 rounded-2xl">
+                      <div className="mb-2 absolute bottom-4 right-[50%] translate-x-[50%] md:translate-x-0 md:right-6 z-10">
+                        <div className="bg-[rgba(0,0,0.4)] flex justify-end space-x-2 rounded-xl text-xs md:text-base">
                           <button
                             onClick={() => handleSwitch('normal')}
-                            className={`px-4 py-2 rounded-xl ${
+                            className={`px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl ${
                               selectedVideo === 'normal' ? 'bg-[#1059D3] text-white' : 'text-[rgba(255,255,255,0.6)])]'
                             }`}
                           >
-                            Normal
+                            {t('Normal')}
                           </button>
                           <button
                             onClick={() => handleSwitch('discern')}
-                            className={`px-4 py-2 rounded-xl ${
+                            className={`px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl ${
                               selectedVideo === 'discern' ? 'bg-[#1059D3] text-white' : 'text-[rgba(255,255,255,0.6)])]'
                             }`}
                           >
-                            Discern
+                            {t('Discern')}
                           </button>
                         </div>
                       </div>
                       <div className="border rounded-2xl overflow-hidden">
-                        <video key={selectedVideo} className="w-full rounded-2xl" controls={false} autoPlay muted loop>
+                        <video
+                          key={selectedVideo}
+                          className="w-full rounded-2xl md:h-[16.8rem] h-[14rem]"
+                          controls={false}
+                          autoPlay
+                          muted
+                          loop
+                        >
                           <source
                             src={selectedVideo === 'normal' ? '/videos/7.mp4' : '/videos/6.mp4'}
                             type="video/mp4"

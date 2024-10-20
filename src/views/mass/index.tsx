@@ -5,6 +5,7 @@ import { bg5Src, desc1Src, desc2Src, desc3Src, icon1Src, icon2Src, icon3Src, ico
 import Image from 'next/image'
 import { AnimatedSection } from '../home'
 import { motion, useAnimation } from 'framer-motion'
+import LINKS from 'utils/links'
 
 const Home: React.FC = () => {
   const { t } = useTranslation()
@@ -80,7 +81,7 @@ const Home: React.FC = () => {
             <AnimatedSection>
               <div className="text-base md:text-xl w-full md:w-[40rem] listdisc">
                 {t(
-                  'Marautec is the first in the world to propose the “All Around Coverage, AllWeather Conditions, All Processes, Sea-Shore Sharing for All Stakeholders" shipsurrounding situational awareness framework system for MASS'
+                  'Marautec is the first in the world to propose the All Around Coverage, AllWeather Conditions, All Processes, Sea-Shore Sharing for All Stakeholders shipsurrounding situational awareness framework system for MASS'
                 )}
               </div>
             </AnimatedSection>
@@ -164,7 +165,7 @@ const Home: React.FC = () => {
                 <AnimatedSection>
                   <p className="mt-4 listdisc">
                     {t(
-                      'Marautec is actively communicating with relevant standard-setting units and institutions topromote the development of related technologies and regulations. in April 2024, the “intelligentShip Specifications" by CCS came into effect, with visual enhancement systems included asessential components for the auxiliary navigation class notation, making them a required system.'
+                      'Marautec is actively communicating with relevant standard-setting units and institutions topromote the development of related technologies and regulations. in April 2024, the intelligentShip Specifications by CCS came into effect, with visual enhancement systems included asessential components for the auxiliary navigation class notation, making them a required system.'
                     )}
                   </p>
                 </AnimatedSection>
@@ -191,7 +192,7 @@ const Home: React.FC = () => {
                 <AnimatedSection>
                   <p className="mt-4 listdisc">
                     {t(
-                      'As the representative of IMO MASS rule-making communication Liaison Group, Marautec actively participated in following up IMO MASS rule-making related meetings, and cooperated with relevant units in the industry to release the "MASS Technology Implementation Path Analysis White Paper"'
+                      'As the representative of IMO MASS rule-making communication Liaison Group, Marautec actively participated in following up IMO MASS rule-making related meetings, and cooperated with relevant units in the industry to release the MASS Technology Implementation Path Analysis White Paper'
                     )}
                   </p>
                 </AnimatedSection>
@@ -204,27 +205,29 @@ const Home: React.FC = () => {
                 </AnimatedSection>
                 <div>
                   <AnimatedSection>
-                    <button
-                      className={`group mt-8 px-6 py-3 bg-white text-black font-semibold rounded-full flex items-center border border-[#BEBEBE] hover:bg-black hover:text-white`}
-                    >
-                      {t('Download')}
-                      <span
-                        className={`ml-2 bg-black text-white rounded-full w-8 h-8 flex-center group-hover:bg-white group-hover:text-black`}
+                    <a href={LINKS.contact}>
+                      <button
+                        className={`group mt-8 px-6 py-3 bg-white text-black font-semibold rounded-full flex items-center border border-[#BEBEBE] hover:bg-black hover:text-white`}
                       >
-                        <svg
-                          width="32"
-                          height="32"
-                          viewBox="0 0 32 32"
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-6 h-6 fill-white group-hover:fill-black"
+                        {t('Download')}
+                        <span
+                          className={`ml-2 bg-black text-white rounded-full w-8 h-8 flex-center group-hover:bg-white group-hover:text-black`}
                         >
-                          <path
-                            d="M17.0082 18.912L24.6402 11.28C24.8269 11.0933 25.0802 10.9884 25.3442 10.9884C25.6083 10.9884 25.8615 11.0933 26.0482 11.28C26.2349 11.4667 26.3398 11.72 26.3398 11.984C26.3398 12.2481 26.2349 12.5013 26.0482 12.688L16.8162 21.92C16.6015 22.1273 16.3147 22.2431 16.0162 22.2431C15.7178 22.2431 15.431 22.1273 15.2162 21.92L5.9522 12.704C5.85975 12.6116 5.78642 12.5018 5.73638 12.381C5.68635 12.2602 5.6606 12.1308 5.6606 12C5.6606 11.8693 5.68635 11.7398 5.73638 11.619C5.78642 11.4982 5.85975 11.3885 5.9522 11.296C6.04465 11.2036 6.15441 11.1302 6.2752 11.0802C6.39599 11.0302 6.52546 11.0044 6.6562 11.0044C6.78695 11.0044 6.91641 11.0302 7.0372 11.0802C7.158 11.1302 7.26775 11.2036 7.3602 11.296L14.9922 18.928V3.47202C14.9742 3.33009 14.9866 3.18594 15.0287 3.04918C15.0707 2.91242 15.1414 2.78617 15.236 2.67883C15.3305 2.57149 15.4469 2.48552 15.5773 2.42663C15.7077 2.36774 15.8491 2.33728 15.9922 2.33728C16.1353 2.33728 16.2767 2.36774 16.4071 2.42663C16.5375 2.48552 16.6539 2.57149 16.7485 2.67883C16.843 2.78617 16.9137 2.91242 16.9557 3.04918C16.9978 3.18594 17.0102 3.33009 16.9922 3.47202L17.0082 18.912ZM4.8002 28.208C4.55676 28.1772 4.33294 28.0586 4.1707 27.8745C4.00846 27.6904 3.91895 27.4534 3.91895 27.208C3.91895 26.9626 4.00846 26.7257 4.1707 26.5416C4.33294 26.3575 4.55676 26.2389 4.8002 26.208H27.2002C27.4436 26.2389 27.6675 26.3575 27.8297 26.5416C27.9919 26.7257 28.0815 26.9626 28.0815 27.208C28.0815 27.4534 27.9919 27.6904 27.8297 27.8745C27.6675 28.0586 27.4436 28.1772 27.2002 28.208H4.8002Z"
-                            stroke-width="0.5"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                          <svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 32 32"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-6 h-6 fill-white group-hover:fill-black"
+                          >
+                            <path
+                              d="M17.0082 18.912L24.6402 11.28C24.8269 11.0933 25.0802 10.9884 25.3442 10.9884C25.6083 10.9884 25.8615 11.0933 26.0482 11.28C26.2349 11.4667 26.3398 11.72 26.3398 11.984C26.3398 12.2481 26.2349 12.5013 26.0482 12.688L16.8162 21.92C16.6015 22.1273 16.3147 22.2431 16.0162 22.2431C15.7178 22.2431 15.431 22.1273 15.2162 21.92L5.9522 12.704C5.85975 12.6116 5.78642 12.5018 5.73638 12.381C5.68635 12.2602 5.6606 12.1308 5.6606 12C5.6606 11.8693 5.68635 11.7398 5.73638 11.619C5.78642 11.4982 5.85975 11.3885 5.9522 11.296C6.04465 11.2036 6.15441 11.1302 6.2752 11.0802C6.39599 11.0302 6.52546 11.0044 6.6562 11.0044C6.78695 11.0044 6.91641 11.0302 7.0372 11.0802C7.158 11.1302 7.26775 11.2036 7.3602 11.296L14.9922 18.928V3.47202C14.9742 3.33009 14.9866 3.18594 15.0287 3.04918C15.0707 2.91242 15.1414 2.78617 15.236 2.67883C15.3305 2.57149 15.4469 2.48552 15.5773 2.42663C15.7077 2.36774 15.8491 2.33728 15.9922 2.33728C16.1353 2.33728 16.2767 2.36774 16.4071 2.42663C16.5375 2.48552 16.6539 2.57149 16.7485 2.67883C16.843 2.78617 16.9137 2.91242 16.9557 3.04918C16.9978 3.18594 17.0102 3.33009 16.9922 3.47202L17.0082 18.912ZM4.8002 28.208C4.55676 28.1772 4.33294 28.0586 4.1707 27.8745C4.00846 27.6904 3.91895 27.4534 3.91895 27.208C3.91895 26.9626 4.00846 26.7257 4.1707 26.5416C4.33294 26.3575 4.55676 26.2389 4.8002 26.208H27.2002C27.4436 26.2389 27.6675 26.3575 27.8297 26.5416C27.9919 26.7257 28.0815 26.9626 28.0815 27.208C28.0815 27.4534 27.9919 27.6904 27.8297 27.8745C27.6675 28.0586 27.4436 28.1772 27.2002 28.208H4.8002Z"
+                              stroke-width="0.5"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </a>
                   </AnimatedSection>
                 </div>
               </div>
