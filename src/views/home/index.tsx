@@ -371,7 +371,7 @@ const Home: React.FC = () => {
           ))}
         </Swiper>
 
-        <div className="swiper-pagination !absolute !bottom-8 !left-[50%] !-translate-x-[50%] !flex !justify-center !space-x-2"></div>
+        <div className="md:hidden swiper-pagination !absolute !bottom-8 !left-[50%] !-translate-x-[50%] !flex !justify-center !space-x-2"></div>
         <style jsx global>
           {`
             .swiper-pagination-bullet {
