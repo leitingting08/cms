@@ -44,13 +44,13 @@ const ModalProvider: React.FC<any> = ({ children }) => {
     // }
   }
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
-    }
-  }, [isOpen])
+  // useEffect(() => {
+  //   if (isOpen) {
+  //     document.body.style.overflow = 'hidden'
+  //   } else {
+  //     document.body.style.overflow = 'auto'
+  //   }
+  // }, [isOpen])
 
   return (
     <Context.Provider

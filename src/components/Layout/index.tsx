@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false
     setOpen(state)
   }
   return (
-    <div className={`text-center relative min-h-full h-auto w-full overflow-x-hidden`}>
+    <div className={`text-center relative min-h-full h-auto w-full`}>
       {!hideHeader ? <PageHeader onChange={handleChange} isWhite={isWhite} /> : null}
 
       {backTitle ? (

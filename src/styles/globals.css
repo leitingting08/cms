@@ -16,7 +16,6 @@
     width: 100%;
     margin: 0 auto;
     height: 100vh;
-    padding-left: 4rem;
   }
 
   .parallax-item {
@@ -26,13 +25,12 @@
     width: 100%;
     height: 100%;
     contain: paint;
-    transition: all 0.1s linear;
-    
+    transition: all 0.5s linear;
+    padding-left: 4%;
   }
 
   .parallax-item .clip {
-    /* position: relative; */
-    width: 100%;
+    width: 96%;
     height: 100%;
   }
 
