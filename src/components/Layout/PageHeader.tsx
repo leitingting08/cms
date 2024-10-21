@@ -15,25 +15,30 @@ export const PageHeader = ({ onChange, isWhite = true }: PageHeaderProps) => {
   const router = useRouter()
   const { t } = useTranslation()
   const [showPanples, setShowPanples] = useState(false)
+  const [whiteBg, setWhiteBg] = useState(isWhite)
 
   return (
-    <div className={`relative h-20 md:h-32  z-50 ${isWhite ? 'bg-white text-black' : 'hover:bg-black'}`}>
+    <div
+      className={`relative h-20 md:h-32 z-50 ${whiteBg ? 'bg-white text-black' : 'hover:bg-white'}`}
+      onMouseEnter={() => !isWhite && setWhiteBg(true)}
+      onMouseLeave={() => !isWhite && setWhiteBg(false)}
+    >
       <div className="container m-auto relative">
         <div className="text-2xl flex-between h-20 md:h-32 px-4 relative">
           <Image
-            src={isWhite ? logoCSrc : logoSrc}
+            src={whiteBg ? logoCSrc : logoSrc}
             alt="logo"
             onClick={() => router.push('/')}
             className="cursor-pointer w-40 md:w-48 h-10 md:h-auto"
           />
           <div className="hidden md:flex-between">
-            <Menu isWhite={isWhite} />
+            <Menu isWhite={whiteBg} />
           </div>
           <div className="hidden md:block">
-            <Translate isWhite={isWhite} />
+            <Translate isWhite={whiteBg} />
           </div>
           <Image
-            src={isWhite ? menudbSrc : menudSrc}
+            src={whiteBg ? menudbSrc : menudSrc}
             alt="logo"
             className="w-6 h-6 md:hidden"
             onClick={() => {

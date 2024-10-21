@@ -90,8 +90,8 @@ const Menu = ({ isWhite }: Props) => {
             <div
               onMouseOver={(e) => handleClick(e, index, true, '1', children)}
               onClick={(e) => handleClick(e, index, !subOpen, link, children)}
-              className={`cursor-pointer font-primary group-hover:font-bold group-hover:border-b-2 md:text-[1.15rem] lg:text-[1.25rem] font-berlin flex-start md:flex-between mx-2 md:mx-3 py-3 md:p-4 md:h-auto inline-block md:flex-center text-left ${
-                isWhite ? 'text-black border-black' : 'text-white border-white'
+              className={`text-base cursor-pointer font-primary font-berlin flex-start md:flex-between mx-2 md:mx-3 py-3 md:p-4 md:h-auto inline-block md:flex-center text-left  after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-500 after:ease-out hover:after:left-0 hover:after:w-full ${
+                isWhite ? 'text-black border-black' : 'group-hover:text-black group-hover:border-black'
               } ${pathname === link ? 'border-b-2 font-bold' : ''}`}
             >
               {t(title)}
@@ -104,7 +104,7 @@ const Menu = ({ isWhite }: Props) => {
                   return (
                     <LinkWrapper key={subindex} link={subitem.link} className="w-full md:block hover:md:text-red py-2">
                       <div
-                        className={`w-full flex-center md:flex-start md:items-center pl-6 pr-2 md:px-0 py-2 text-left text-[1rem] md:text-[1.125rem] lg:text-[1.25rem] align-middle`}
+                        className={`w-full flex-center md:flex-start md:items-center pl-6 pr-2 md:px-0 py-2 text-left align-middle`}
                         onClick={() => close()}
                         onMouseEnter={() => setSubIndex(subindex)}
                         onMouseLeave={() => setSubIndex(-1)}

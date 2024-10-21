@@ -8,7 +8,7 @@ import {
   bg2mSrc,
   startsaySrc,
   endsaySrc,
-  backSrc,
+  bgvSrc,
   case1Src,
   case2Src,
   case3Src,
@@ -25,15 +25,15 @@ import useInView from 'hooks/useInView'
 import MyScroll from './components/scroll'
 import Link from 'next/link'
 
-export const AnimatedSection = ({ children, delay }: any) => {
+export const AnimatedSection = ({ children, delay, effect = 'animate-slide-in-bottom', className = '' }: any) => {
   const [ref, inView] = useInView()
 
   return (
     <div
       ref={ref as any}
       className={`transition-opacity duration-1000 ${
-        inView ? `opacity-100 animate-slide-in-bottom animation-delay-[${delay}ms]` : 'opacity-0'
-      }`}
+        inView ? `opacity-100 ${effect} animation-delay-[${delay}ms]` : 'opacity-0'
+      } ${className}`}
     >
       {children}
     </div>
@@ -43,6 +43,7 @@ export const AnimatedSection = ({ children, delay }: any) => {
 const Home: React.FC = () => {
   const { t } = useTranslation()
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
+  const [videoPlay, setVideoPlay] = useState(false)
   const [progress, setProgress] = useState([0, 0, 0])
   const videoRef = useRef<HTMLVideoElement>(null)
   // const videos = ['/videos/5.mp4', '/videos/2.mp4', '/videos/3.mp4']
@@ -133,27 +134,32 @@ const Home: React.FC = () => {
     {
       title: t('Opening the "smart eye" for smart navigation'),
       date: '2024.07.24',
-      image: '/images/news/news1.png'
+      image: '/images/news/news1.png',
+      id: 0
     },
     {
       title: t('MyRun Intelligent Technology Extends Its International Communication Reach'),
       date: '2024.02.26',
-      image: '/images/news/news2.png'
+      image: '/images/news/news2.png',
+      id: 1
     },
     {
       title: t('Participated In ISO/TC8/WG10 And China-Korea Autonomous Ship Seminar'),
       date: '2023.12.28',
-      image: '/images/news/news3.png'
+      image: '/images/news/news3.png',
+      id: 2
     },
     {
       title: t('CCS Issues First Situational Awareness Aids To Navigation System Certificate'),
       date: '2023.12.05',
-      image: '/images/news/news4.png'
+      image: '/images/news/news4.png',
+      id: 3
     },
     {
       title: t('Smart Ships For MASS Consensus'),
       date: '2023.07.20',
-      image: '/images/news/news4.png'
+      image: '/images/news/news4.png',
+      id: 4
     }
   ]
 
@@ -185,14 +191,14 @@ const Home: React.FC = () => {
             className="absolute bottom-8 md:bottom-16 right-8 md:right-16 arrowScroll w-8"
             alt=""
           />
-          <div className="container m-auto text-left py-80 px-4 md:px-0">
+          <div className="container m-auto text-left pt-80 md:pt-[40%] px-4 md:px-0">
             <AnimatedSection>
               <div className="text-4xl md:text-7xl overflow-hidden md:w-[50rem]">
                 <div>{source[currentVideoIndex].title}</div>
               </div>
             </AnimatedSection>
             <AnimatedSection delay={1000}>
-              <div className="text-xl md:text-2xl overflow-hidden">
+              <div className="text-xl md:text-2xl overflow-hidden mt-4">
                 <div>{source[currentVideoIndex].subtitle}</div>
               </div>
             </AnimatedSection>
@@ -225,7 +231,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="w-full bg-white pt-32 pb-20 md:pb-40">
+      <div className="w-full bg-white pt-32 pb-20 md:pt-44 md:pb-48">
         <div className="container m-auto relative md:flex-between px-6 md:px-0 py-12 md:py-0">
           <Image src={bg2Src} className="w-auto h-[20rem] md:h-72 absolute top-16 left-0 hidden md:block" alt="bg" />
           <Image
@@ -236,12 +242,31 @@ const Home: React.FC = () => {
           <div className="text-[#1059D3]">
             <AnimatedSection>
               <div className="text-5xl md:text-9xl uppercase font-bold text-left">{t('About us')}</div>
-              <div className="text-xl font-bold text-left">
+              <div className="text-xl font-bold text-left my-4">
                 {t('Mairun Intelligent Technology (Shanghai) Co., Ltd. ')}
               </div>
             </AnimatedSection>
           </div>
-          <div className="text-[#000] md:w-[40rem] text-left mt-8 md:mt-0">
+          <div className="text-[#000] md:w-[40rem] text-left mt-8 md:mt-0 hidden md:block">
+            <AnimatedSection>
+              <p>
+                {t(
+                  'Specialised in AI enabled visual detection and data fusion technology for maritime industries, Marautec is a leading provider in situational awareness for navigation safety and Maritime Autonomous Surface Ships (MASS).'
+                )}
+              </p>
+              <p className="py-10">
+                {t(
+                  `Based on integrated data from AI visual detection technology, Radar, AIS, E-chart, and other sensors, Marautec's navigation assistant system, Marautec i-EYE, presents an intuitive, easy-to-use interface to provide a clear, complete and comprehensive view on surrounding situation in all processes for all types of ships in all weather conditions, not only effectively improving navigation safety, but also becoming an essential part for MASS.`
+                )}
+              </p>
+              <p>
+                {t(
+                  `Marautec i-EYE has now covered functions from berthing to navigation, from enhanced visibilities to sea shore realtime visual communication on most ship types, and has received favorable feedback from leading clients.`
+                )}
+              </p>
+            </AnimatedSection>
+          </div>
+          <div className="text-[#000] md:w-[40rem] text-left mt-8 md:mt-0 md:hidden">
             <AnimatedSection>
               <p>
                 {t(
@@ -270,24 +295,28 @@ const Home: React.FC = () => {
         <MyScroll />
       </div>
       <div className="w-full bg-white text-black">
-        <div className="container m-auto relative md:flex-between text-left px-4 md:px-0 pb-12">
+        <div className="container m-auto relative md:flex-between text-left px-4 md:px-0 pb-12 min-h-[100vh]">
           <AnimatedSection>
             <div className="text-5xl pr-28 md:pr-0 md:text-8xl md:w-[40rem] mb-8 pt-6 font-bold">
               {t('Marautec i-EYE')}
             </div>
             <div className="hidden md:block">
-              <div className="md:w-[44rem]">
+              <div className="md:w-[44rem] mb-4">
                 {t(
                   `From inception to commercialization, Marautec i-EYE has been closely related to the safety of ship driving. Today, many captains use Marautec i-EYE daily , let's listen to their stories.`
                 )}
               </div>
-              <video
-                className="w-full h-[25.5rem] my-8"
-                preload="true"
-                autoPlay={true}
-                controls={true}
-                src="/videos/3.mp4"
-              />
+              {!videoPlay ? (
+                <Image src={bgvSrc} alt="video" className="cursor-pointer" onClick={() => setVideoPlay(true)} />
+              ) : (
+                <video
+                  className="w-full h-[25.5rem] my-8"
+                  preload="true"
+                  autoPlay={true}
+                  controls={true}
+                  src="/videos/3.mp4"
+                />
+              )}
             </div>
           </AnimatedSection>
           <div className="md:w-[48rem] py-10 md:ml-10">
@@ -344,56 +373,67 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="relative">
-        <Swiper
-          className="md:flex overflow-hidden md:h-[40rem] h-[100vh]"
-          id="case"
-          slidesPerView={1}
-          modules={[Pagination]}
-          pagination={{ clickable: true, el: '.swiper-pagination' }}
-        >
-          {cardsItems.map((item, index) => (
-            <SwiperSlide
-              key={index}
-              className="relative md:flex-1 duration-700 ease-in-out md:hover:flex-[4] md:hover:z-10 md:h-[40rem] h-[100vh] transition-all"
-            >
-              <Image
-                src={item.image}
-                alt={`Image ${index + 1}`}
-                className="w-full h-full object-cover transition-all duration-700 ease-in-out"
-                width={590}
-                height={540}
-              />
-              <div className="absolute bottom-0 left-0 p-4 text-white text-left pb-10">
-                <p className="text-3xl md:text-5xl">{item.title}</p>
-                <p className="text-base md:text-lg mt-8">{item.subtitle}</p>
+      <div id="case">
+        <div className="relative md:hidden h-[100vh]">
+          <Swiper
+            className="overflow-hidden h-full"
+            slidesPerView={1}
+            modules={[Pagination]}
+            pagination={{ clickable: true, el: '.swiper-pagination-mobile' }}
+          >
+            {cardsItems.map((item, index) => (
+              <SwiperSlide key={index} className="relative duration-700 ease-in-out  h-[100vh] transition-all">
+                <Image
+                  src={item.image}
+                  alt={`Image ${index + 1}`}
+                  className="w-full h-full object-cover transition-all duration-700 ease-in-out"
+                  width={590}
+                  height={540}
+                />
+                <div className="absolute bottom-0 left-0 p-4 text-white text-left pb-10">
+                  <p className="text-3xl md:text-5xl">{item.title}</p>
+                  <p className="text-base md:text-lg mt-8">{item.subtitle}</p>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          <div className="md:hidden swiper-pagination-mobile !absolute !bottom-8 !left-[50%] !-translate-x-[50%] !flex !justify-center !space-x-2 !z-10"></div>
+          <style jsx global>
+            {`
+              .swiper-pagination-mobile .swiper-pagination-bullet {
+                width: 20px !important;
+                height: 4px !important;
+                background-color: #fff !important;
+                opacity: 0.4 !important;
+                margin: 0 5px !important;
+                border-radius: 2px !important;
+              }
+
+              .swiper-pagination-mobile .swiper-pagination-bullet-active {
+                background-color: #fff !important; /* white */
+                opacity: 1 !important;
+              }
+            `}
+          </style>
+        </div>
+        <div className="relative hidden md:block h-[100vh]">
+          <div className="flex overflow-hidden h-full">
+            {cardsItems.map((item, index) => (
+              <div key={index} className="bg-item relative">
+                <Image src={item.image} alt={`Image ${index + 1}`} className="w-full h-[100vh] object-cover" />
+                <div className="absolute bottom-0 left-0 p-4 text-white text-left pb-10">
+                  <p className="text-3xl md:text-5xl">{item.title}</p>
+                  <p className="text-base md:text-lg mt-8">{item.subtitle}</p>
+                </div>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
-        <div className="md:hidden swiper-pagination !absolute !bottom-8 !left-[50%] !-translate-x-[50%] !flex !justify-center !space-x-2"></div>
-        <style jsx global>
-          {`
-            .swiper-pagination-bullet {
-              width: 20px !important;
-              height: 4px !important;
-              background-color: #fff !important;
-              opacity: 0.4 !important;
-              margin: 0 5px !important;
-              border-radius: 2px !important;
-            }
-
-            .swiper-pagination-bullet-active {
-              background-color: #fff !important; /* white */
-              opacity: 1 !important;
-            }
-          `}
-        </style>
+            ))}
+          </div>
+        </div>
       </div>
       {/* <div className="swiper-pagination flex justify-center space-x-2 mt-4"></div> */}
-      <div className="bg-[#00296C] text-white py-40 bg bg4 bg-cover">
-        <div className="container mx-auto px-4 text-center max-h-[100vh] overflow-y-auto">
+      <div className="bg-[#00296C] text-white py-40 bg bg4 bg-cover h-[calc(100vh-10rem)]">
+        <div className="container mx-auto px-4 text-center h-full overflow-y-auto flex-col flex-center">
           <AnimatedSection>
             <h2 className="text-3xl font-bold mb-20">{t('Why Choose Us')}</h2>
           </AnimatedSection>
@@ -434,7 +474,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white py-6">
+      <div className="bg-white py-8">
         <Marquee speed={10} gradientWidth={0} className="relative">
           {new Array(10).fill(' ').map((item, index) => {
             return (
@@ -443,7 +483,7 @@ const Home: React.FC = () => {
                 src={`/images/logos/logo${index + 1}.png`}
                 width={300}
                 height={200}
-                className="w-auto h-[4rem] md:h-[6rem] md:my-4 ml-8"
+                className="w-auto h-[4rem] md:my-4 ml-16"
                 alt="logo"
               />
             )
@@ -460,37 +500,41 @@ const Home: React.FC = () => {
               hide: false
             }}
           >
-            {/* <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4"> */}
             {newsItems.map((item, index) => (
-              <SwiperSlide key={index} className="bg-white overflow-hidden mr-4">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  height={160}
-                  width={320}
-                  className="w-full h-40 md:h-52 object-cover"
-                />
-                <div className="p-4 text-left">
-                  <h3 className="text-lg font-semibold text-black mb-4">{item.title}</h3>
-                  <p className="text-sm text-gray-500 pb-20">{item.date}</p>
-                </div>
+              <SwiperSlide className="bg-white overflow-hidden mr-4" key={index}>
+                <Link href={`/detail/${item.id}`} className="cursor-pointer">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    height={160}
+                    width={320}
+                    className="w-full h-40 md:h-52 object-cover"
+                  />
+                  <div className="p-4 text-left">
+                    <h3 className="text-lg font-semibold text-black mb-4">{item.title}</h3>
+                    <p className="text-sm text-gray-500 pb-20">{item.date}</p>
+                  </div>
+                </Link>
               </SwiperSlide>
             ))}
-            {/* </div> */}
           </Swiper>
         </div>
       </div>
       <div className="md:flex w-full mx-auto">
-        <div className="flex-1 bg-[#1059D3] text-white p-8 py-20">
+        <div className="flex-1 bg-white text-black p-8 py-20 hover:text-white group hover:bg8">
           <AnimatedSection>
-            <h2 className="text-4xl font-bold uppercase">{t('MISSION')}</h2>
-            <p className="mt-4 text-lg">{t('SmartShipping, DigitalOcean')}</p>
+            <h2 className="text-4xl md:text-9xl font-bold text-[#EBEBEB] uppercase group-hover:text-white">
+              {t('MISSION')}
+            </h2>
+            <p className="mt-4 text-lg md:text-4xl">{t('SmartShipping, DigitalOcean')}</p>
           </AnimatedSection>
         </div>
-        <div className="flex-1 bg-white text-black p-8 py-20">
+        <div className="flex-1 bg-white text-black p-8 py-20 hover:text-white group hover:bg8">
           <AnimatedSection>
-            <h2 className="text-4xl font-bold text-gray-300 uppercase">{t('Aspiration')}</h2>
-            <p className="mt-4 text-lg">
+            <h2 className="text-4xl md:text-9xl font-bold text-[#EBEBEB] uppercase group-hover:text-white">
+              {t('Aspiration')}
+            </h2>
+            <p className="mt-4 text-lg md:text-4xl">
               {t('Aspires to be a global leader in navigation safety and autonomous shipping')}
             </p>
           </AnimatedSection>

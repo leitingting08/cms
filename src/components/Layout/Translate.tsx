@@ -17,8 +17,8 @@ const SelectLanguage: React.FC<LanguageProps> = ({ isWhite = true, className = '
   }
 
   return (
-    <div className="flex-start items-center md:flex-center gap-3 mt-4 md:mt-0">
-      <Image src={isWhite ? languageBSrc : languageSrc} alt="" className="w-8 h-8" />
+    <div className="flex-start items-center md:flex-center gap-3 mt-4 md:mt-0 text-base">
+      <Image src={isWhite ? languageBSrc : languageSrc} alt="" className="w-6 h-6" />
       <div
         className={`cursor-pointer ${isWhite ? 'hover:text-black' : 'hover:text-white'} ${
           isWhite

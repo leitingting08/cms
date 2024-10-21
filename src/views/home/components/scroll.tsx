@@ -7,29 +7,75 @@ import Image from 'next/image'
 export default function Home() {
   const { t } = useTranslation()
   const [selectedVideo, setSelectedVideo] = useState('normal')
+  const [recordedScrollY, setRecordedScrollY] = useState(0)
+  const parallaxRef = useRef<any>(null)
+  const [progress, setProgress] = useState(0)
+  const [activeSection, setActiveSection] = useState('01')
+  const [len, setLen] = useState('01')
 
   const handleSwitch = (videoType: string) => {
-    console.log(`Switching to: ${videoType}`)
     setSelectedVideo(videoType)
   }
 
+  useEffect(() => {
+    const parallaxWrap = parallaxRef.current
+    const parallaxItems = parallaxRef.current.querySelectorAll('.parallax-item')
+    const screenHeight = window.innerHeight
+    const leng = parallaxItems.length
+    setLen(leng < 10 ? `0${leng}` : `${leng}`)
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY
+      const wrapTop = parallaxWrap.getBoundingClientRect().top
+      let currentSection = 1
+
+      parallaxItems.forEach((item: any, index: any) => {
+        if (wrapTop === 0 && !recordedScrollY) {
+          setRecordedScrollY(scrollPosition)
+        }
+        const rect = item.getBoundingClientRect()
+        if (rect.top <= window.innerHeight / 2) {
+          currentSection = index + 1
+        }
+        const scrollTop = window.scrollY
+        const docHeight = document.body.scrollHeight - window.innerHeight
+        const scrolled = (scrollTop / docHeight) * 100
+        setProgress(scrolled)
+      })
+
+      setActiveSection(currentSection < 10 ? `0${currentSection}` : `${currentSection}`)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [recordedScrollY])
+
   return (
-    <div className="h-[400vh] bg-black relative">
-      <div className="parallax-wrap">
+    <div className="h-[100vh] bg-black relative">
+      <div className="fixed left-10 top-1/2 transform -translate-y-1/2 h-48 flex flex-col items-center z-50">
+        <div>{activeSection}</div>
+        <div className="w-[2px] bg-[rgba(255,255,255,.6)] h-full relative">
+          <div
+            className="absolute left-0 top-0 w-px bg-white transition-all duration-300"
+            style={{ height: `${progress}%` }}
+          ></div>
+        </div>
+        <div>{len}</div>
+      </div>
+      <div className="parallax-wrap" ref={parallaxRef}>
         <div className="parallax-item bg-black pr1 z-30">
-          <div className="sticky-content">
+          <div className="sticky top-0">
             <div className="clip">
               <div className="bg" />
               <div className="content container m-auto px-4 md:px-0">
                 <div className="pin">
                   <AnimatedSection>
-                    <div className="text-4xl md:text-6xl font-bold mb-8">{t('Marautec i-EYE')}</div>
+                    <div className="text-4xl md:text-6xl font-bold mb-8 mt-8">{t('Marautec i-EYE')}</div>
                   </AnimatedSection>
                   <AnimatedSection>
                     <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
                   </AnimatedSection>
-                  <AnimatedSection>
-                    <Image src={bg6Src} alt="" className="my-12" />
+                  <AnimatedSection className="w-full flex-end">
+                    <Image src={bg6Src} alt="" className="my-12 rounded-2xl" />
                   </AnimatedSection>
                   <AnimatedSection>
                     <div className="text-xl font-bold mb-4">{t('Communicatable')}</div>
@@ -74,7 +120,7 @@ export default function Home() {
                           <button
                             onClick={() => handleSwitch('normal')}
                             className={`px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl ${
-                              selectedVideo === 'normal' ? 'bg-[#1059D3] text-white' : 'text-[rgba(255,255,255,0.6)])]'
+                              selectedVideo === 'normal' ? 'bg-[#1059D3] text-white' : 'text-[rgba(255,255,255,0.6)]'
                             }`}
                           >
                             {t('Normal')}
@@ -82,7 +128,7 @@ export default function Home() {
                           <button
                             onClick={() => handleSwitch('discern')}
                             className={`px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl ${
-                              selectedVideo === 'discern' ? 'bg-[#1059D3] text-white' : 'text-[rgba(255,255,255,0.6)])]'
+                              selectedVideo === 'discern' ? 'bg-[#1059D3] text-white' : 'text-[rgba(255,255,255,0.6)]'
                             }`}
                           >
                             {t('Discern')}
@@ -92,7 +138,7 @@ export default function Home() {
                       <div className="border rounded-2xl overflow-hidden">
                         <video
                           key={selectedVideo}
-                          className="w-full rounded-2xl md:h-[16.8rem] h-[14rem]"
+                          className="w-full rounded-2xl md:h-auto h-[14rem]"
                           controls={false}
                           autoPlay
                           muted
@@ -108,7 +154,7 @@ export default function Home() {
                     </div>
                   </AnimatedSection>
                   <AnimatedSection>
-                    <div className="text-xl font-bold  mb-4">{t('Comprehensive')}</div>
+                    <div className="text-xl font-bold mb-4">{t('Comprehensive')}</div>
                   </AnimatedSection>
                   <ul className="md:flex gap-8 ml-4">
                     <AnimatedSection>
@@ -144,7 +190,7 @@ export default function Home() {
               <div className="content container m-auto px-4 md:px-0">
                 <div className="pin">
                   <AnimatedSection>
-                    <div className="text-4xl md:text-6xl font-bold mb-8">{t('Marautec i-EYE')}</div>
+                    <div className="text-4xl md:text-6xl font-bold mb-8 mt-8">{t('Marautec i-EYE')}</div>
                   </AnimatedSection>
                   <AnimatedSection>
                     <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
@@ -158,7 +204,7 @@ export default function Home() {
                     </div>
                   </AnimatedSection>
                   <AnimatedSection>
-                    <div className="text-xl font-bold  mb-4">{t('Clearer')}</div>
+                    <div className="text-xl font-bold mb-4">{t('Clearer')}</div>
                   </AnimatedSection>
                   <ul className="pl-4">
                     <AnimatedSection>
@@ -167,7 +213,7 @@ export default function Home() {
                       </li>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <li className="list-disc">
+                      <li className="list-disc md:max-w-[36rem]">
                         {t(
                           'In specific scenarios such as docking and undocking, entering and leaving the port, it provides real-time measurement and display of the relative status between the vessel and the shore, such as distance, speed, and angle.'
                         )}
@@ -186,7 +232,7 @@ export default function Home() {
               <div className="content container m-auto px-4 md:px-0">
                 <div className="pin">
                   <AnimatedSection>
-                    <div className="text-4xl md:text-6xl font-bold mb-8">{t('Marautec i-EYE')}</div>
+                    <div className="text-4xl md:text-6xl font-bold mb-8 mt-8">{t('Marautec i-EYE')}</div>
                   </AnimatedSection>
                   <AnimatedSection>
                     <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
@@ -204,7 +250,7 @@ export default function Home() {
                       </li>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <li className="list-disc">
+                      <li className="list-disc md:max-w-[36rem]">
                         {t(
                           'In specific scenarios such as docking and undocking, entering and leaving the port, it provides real-time measurement and display of the relative status between the vessel and the shore, such as distance, speed, and angle.'
                         )}
