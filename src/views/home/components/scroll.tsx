@@ -118,8 +118,8 @@ export default function Home() {
           <div>{len}</div>
         </div>
         <div className="parallax-wrap" ref={parallaxRef}>
-          <div className="parallax-item bg-black pr1 z-30">
-            <div className="sticky top-0">
+          <div className="parallax-item pr4 z-30">
+            <div className="sticky-content">
               <div className="clip">
                 <div className="bg" />
                 <div className="content container m-auto px-4 md:px-0">
@@ -130,24 +130,22 @@ export default function Home() {
                     <AnimatedSection>
                       <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
                     </AnimatedSection>
-                    <AnimatedSection className="w-full flex-end">
-                      <Image src={bg6Src} alt="" className="my-12 rounded-2xl" />
+                    <AnimatedSection>
+                      <div className="h-[25rem] invisible" />
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div className="text-xl font-bold mb-4">{t('Communicatable')}</div>
+                      <div className="text-xl font-bold mb-4">{t('Complete')}</div>
                     </AnimatedSection>
-                    <ul className="md:flex gap-8 pl-4">
+                    <ul className="pl-4">
                       <AnimatedSection>
                         <li className="mb-8 list-disc">
-                          {t(
-                            'Through data processing and compression, it can adapt to the video transmission under the condition of low communication quality, and can transmit 1080P high-definition video streams with a minimum bandwidth of 0.2Mbps;'
-                          )}
+                          {t('360° panoramic view around the ship can be seen, and cover the blind areas.')}
                         </li>
                       </AnimatedSection>
                       <AnimatedSection>
-                        <li className="list-disc">
+                        <li className="list-disc md:max-w-[36rem]">
                           {t(
-                            'It can adapt to high-definition video transmission under low bandwidth conditions, capable of transmitting 1080P high-definition video streams at a minimum bandwidth of 0.2Mbps, ensuring that shore-side personnel can see the real-time status of the vessel.'
+                            'In specific scenarios such as docking and undocking, entering and leaving the port, it provides real-time measurement and display of the relative status between the vessel and the shore, such as distance, speed, and angle.'
                           )}
                         </li>
                       </AnimatedSection>
@@ -157,7 +155,71 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="parallax-item pr2 z-20">
+          <div className="parallax-item pr3 z-20 bg-[#1059D3]">
+            <div className="sticky-content">
+              <div className="clip">
+                <div className="bg" />
+
+                <div className="content container m-auto px-4 md:px-0">
+                  <div className="pin">
+                    <AnimatedSection>
+                      <div className="text-4xl md:text-6xl font-bold mb-8 mt-8">{t('Marautec i-EYE')}</div>
+                    </AnimatedSection>
+                    <AnimatedSection>
+                      <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
+                    </AnimatedSection>
+                    <AnimatedSection>
+                      <div className="flex-end py-12 relative">
+                        <video
+                          ref={videoRef}
+                          key="4"
+                          className="w-auto rounded-2xl h-[25rem] md:h-[30rem]"
+                          controls={false}
+                          autoPlay={false}
+                          muted
+                          loop
+                        >
+                          <source src={'/videos/4.mp4'} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                        <div className="flex flex-col items-center h-36 justify-between absolute top-1/2 right-1 -translate-y-1/2">
+                          <Image src={daySrc} alt="day" />
+                          <PrettoSlider
+                            orientation="vertical"
+                            value={sliderValue}
+                            onChange={handleSliderChange}
+                            className="my-1"
+                            aria-labelledby="vertical-slider"
+                            min={0}
+                            max={100}
+                          />
+                          <Image src={nightSrc} alt="night" />
+                        </div>
+                      </div>
+                    </AnimatedSection>
+                    <AnimatedSection>
+                      <div className="text-xl font-bold mb-4">{t('Clearer')}</div>
+                    </AnimatedSection>
+                    <ul className="pl-4">
+                      <AnimatedSection>
+                        <li className="mb-8 list-disc">
+                          {t('360° panoramic view around the ship can be seen, and cover the blind areas.')}
+                        </li>
+                      </AnimatedSection>
+                      <AnimatedSection>
+                        <li className="list-disc md:max-w-[36rem]">
+                          {t(
+                            'In specific scenarios such as docking and undocking, entering and leaving the port, it provides real-time measurement and display of the relative status between the vessel and the shore, such as distance, speed, and angle.'
+                          )}
+                        </li>
+                      </AnimatedSection>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="parallax-item pr2 z-10">
             <div className="sticky-content">
               <div className="clip">
                 <div className="bg" />
@@ -238,11 +300,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="parallax-item pr3 z-10 bg-[#1059D3]">
-            <div className="sticky-content">
+          <div className="parallax-item bg-black pr1 z-0">
+            <div className="sticky top-0">
               <div className="clip">
                 <div className="bg" />
-
                 <div className="content container m-auto px-4 md:px-0">
                   <div className="pin">
                     <AnimatedSection>
@@ -251,85 +312,24 @@ export default function Home() {
                     <AnimatedSection>
                       <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
                     </AnimatedSection>
-                    <AnimatedSection>
-                      <div className="flex-end py-12 relative">
-                        <video
-                          ref={videoRef}
-                          key="4"
-                          className="w-auto rounded-2xl h-[25rem] md:h-[30rem]"
-                          controls={false}
-                          autoPlay={false}
-                          muted
-                          loop
-                        >
-                          <source src={'/videos/4.mp4'} type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
-                        <div className="flex flex-col items-center h-36 justify-between absolute top-1/2 right-1 -translate-y-1/2">
-                          <Image src={daySrc} alt="day" />
-                          <PrettoSlider
-                            orientation="vertical"
-                            value={sliderValue}
-                            onChange={handleSliderChange}
-                            className="my-1"
-                            aria-labelledby="vertical-slider"
-                            min={0}
-                            max={100}
-                          />
-                          <Image src={nightSrc} alt="night" />
-                        </div>
-                      </div>
+                    <AnimatedSection className="w-full flex-end">
+                      <Image src={bg6Src} alt="" className="my-12 rounded-2xl" />
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div className="text-xl font-bold mb-4">{t('Clearer')}</div>
+                      <div className="text-xl font-bold mb-4">{t('Communicatable')}</div>
                     </AnimatedSection>
-                    <ul className="pl-4">
+                    <ul className="md:flex gap-8 pl-4">
                       <AnimatedSection>
                         <li className="mb-8 list-disc">
-                          {t('360° panoramic view around the ship can be seen, and cover the blind areas.')}
-                        </li>
-                      </AnimatedSection>
-                      <AnimatedSection>
-                        <li className="list-disc md:max-w-[36rem]">
                           {t(
-                            'In specific scenarios such as docking and undocking, entering and leaving the port, it provides real-time measurement and display of the relative status between the vessel and the shore, such as distance, speed, and angle.'
+                            'Through data processing and compression, it can adapt to the video transmission under the condition of low communication quality, and can transmit 1080P high-definition video streams with a minimum bandwidth of 0.2Mbps;'
                           )}
                         </li>
                       </AnimatedSection>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="parallax-item pr4 z-0">
-            <div className="sticky-content">
-              <div className="clip">
-                <div className="bg" />
-                <div className="content container m-auto px-4 md:px-0">
-                  <div className="pin">
-                    <AnimatedSection>
-                      <div className="text-4xl md:text-6xl font-bold mb-8 mt-8">{t('Marautec i-EYE')}</div>
-                    </AnimatedSection>
-                    <AnimatedSection>
-                      <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
-                    </AnimatedSection>
-                    <AnimatedSection>
-                      <div className="h-[25rem] invisible" />
-                    </AnimatedSection>
-                    <AnimatedSection>
-                      <div className="text-xl font-bold mb-4">{t('Complete')}</div>
-                    </AnimatedSection>
-                    <ul className="pl-4">
                       <AnimatedSection>
-                        <li className="mb-8 list-disc">
-                          {t('360° panoramic view around the ship can be seen, and cover the blind areas.')}
-                        </li>
-                      </AnimatedSection>
-                      <AnimatedSection>
-                        <li className="list-disc md:max-w-[36rem]">
+                        <li className="list-disc">
                           {t(
-                            'In specific scenarios such as docking and undocking, entering and leaving the port, it provides real-time measurement and display of the relative status between the vessel and the shore, such as distance, speed, and angle.'
+                            'It can adapt to high-definition video transmission under low bandwidth conditions, capable of transmitting 1080P high-definition video streams at a minimum bandwidth of 0.2Mbps, ensuring that shore-side personnel can see the real-time status of the vessel.'
                           )}
                         </li>
                       </AnimatedSection>
