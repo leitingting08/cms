@@ -256,7 +256,7 @@ export default function Home() {
                         <video
                           ref={videoRef}
                           key="4"
-                          className="w-auto rounded-2xl h-[25rem] md:h-[36rem]"
+                          className="w-auto rounded-2xl h-[25rem] md:h-[30rem]"
                           controls={false}
                           autoPlay={false}
                           muted
@@ -265,7 +265,7 @@ export default function Home() {
                           <source src={'/videos/4.mp4'} type="video/mp4" />
                           Your browser does not support the video tag.
                         </video>
-                        <div className="flex flex-col items-center h-40 justify-between absolute top-1/2 right-1 -translate-y-1/2">
+                        <div className="flex flex-col items-center h-36 justify-between absolute top-1/2 right-1 -translate-y-1/2">
                           <Image src={daySrc} alt="day" />
                           <PrettoSlider
                             orientation="vertical"

@@ -191,7 +191,7 @@ const Home: React.FC = () => {
             className="absolute bottom-8 md:bottom-16 right-8 md:right-16 arrowScroll w-8"
             alt=""
           />
-          <div className="container m-auto text-left pt-80 md:pt-[40%] px-4 md:px-0">
+          <div className="container m-auto text-left pt-80 md:pt-[70vh] px-4 md:px-0">
             <AnimatedSection>
               <div className="text-4xl md:text-7xl overflow-hidden md:w-[50rem]">
                 <div>{source[currentVideoIndex].title}</div>
