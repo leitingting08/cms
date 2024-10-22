@@ -439,38 +439,38 @@ const Home: React.FC = () => {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-20">
-            <div>
+            <AnimatedSection>
               <h3 className="text-4xl font-bold">20+</h3>
               <p className="mt-2">
                 {t(
                   'We have been deeply engaged in the industry for more than 20 years, providing customers with a variety of application scenario solutions.'
                 )}
               </p>
-            </div>
-            <div>
+            </AnimatedSection>
+            <AnimatedSection>
               <h3 className="text-4xl font-bold">100%</h3>
               <p className="mt-2">{t('All captains endorse berthing and navigation systems on safety improvement')}</p>
-            </div>
-            <div>
+            </AnimatedSection>
+            <AnimatedSection>
               <h3 className="text-4xl font-bold">{t('No.1')}</h3>
               <p className="mt-2">
                 {t('A large number of surface navigation data and application scenarios have been accumulated')}
               </p>
-            </div>
-            <div>
+            </AnimatedSection>
+            <AnimatedSection>
               <h3 className="text-4xl font-bold">{t('7 DAYS')}</h3>
               <p className="mt-2">
                 {t(
                   'The products are modular, with a flexible and fast installation period, and on average, installation and commissioning can be completed in 7 days.'
                 )}
               </p>
-            </div>
-            <div>
+            </AnimatedSection>
+            <AnimatedSection>
               <h3 className="text-4xl font-bold">7 * 24</h3>
               <p className="mt-2">
                 {t('A professional service team with rapid response throughout the entire project lifecycle.')}
               </p>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </div>
