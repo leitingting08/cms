@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'contexts/Localization'
 import { AnimatedSection } from '../index'
-import { bg6Src } from 'utils/icon'
+import { bg6Src, daySrc, nightSrc, sliderSrc } from 'utils/icon'
 import Image from 'next/image'
+import { styled, Slider } from '@mui/material'
 
 export default function Home() {
   const { t } = useTranslation()
@@ -12,6 +13,60 @@ export default function Home() {
   const [progress, setProgress] = useState(0)
   const [activeSection, setActiveSection] = useState('01')
   const [len, setLen] = useState('01')
+  const videoRef = useRef<any>(null)
+  const [sliderValue, setSliderValue] = useState(100)
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = 3 // 初始时停留在3秒
+    }
+    const handleTimeUpdate = () => {
+      if (videoRef.current.currentTime > 7) {
+        videoRef.current.pause()
+        videoRef.current.currentTime = 3
+      }
+    }
+
+    const video = videoRef.current
+    video.addEventListener('timeupdate', handleTimeUpdate)
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate)
+    }
+  }, [])
+
+  const handleSliderChange = (_event: any, newValue: any) => {
+    const reversedValue = 100 - newValue // 反转值
+    setSliderValue(newValue)
+
+    if (videoRef.current) {
+      const newTime = 3 + (reversedValue / 100) * 3 // 3.5秒到7.5秒
+      videoRef.current.currentTime = newTime
+    }
+  }
+
+  const PrettoSlider = styled(Slider)({
+    color: '#1E72FF',
+    '& .MuiSlider-track': {
+      border: 'none',
+      backgroundColor: 'rgba(255,255,255,.4)'
+    },
+    '& .MuiSlider-thumb': {
+      height: 16,
+      width: 16,
+      backgroundColor: '#1E72FF',
+      border: '2px solid #fff',
+      '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
+        boxShadow: 'inherit'
+      },
+      '&::before': {
+        display: 'none'
+      }
+    },
+    '& .MuiSlider-rail': {
+      backgroundColor: '#fff'
+    }
+  })
 
   const handleSwitch = (videoType: string) => {
     setSelectedVideo(videoType)
@@ -139,7 +194,7 @@ export default function Home() {
                         <div className="border rounded-2xl overflow-hidden">
                           <video
                             key={selectedVideo}
-                            className="w-full rounded-2xl md:h-auto h-[14rem]"
+                            className="w-full rounded-2xl md:h-auto h-[14rem] object-cover"
                             controls={false}
                             autoPlay
                             muted
@@ -197,11 +252,32 @@ export default function Home() {
                       <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div className="flex-end py-12">
-                        <video key="4" className="w-auto rounded-2xl h-[25rem]" controls={false} autoPlay muted loop>
+                      <div className="flex-end py-12 relative">
+                        <video
+                          ref={videoRef}
+                          key="4"
+                          className="w-auto rounded-2xl h-[25rem] md:h-[36rem]"
+                          controls={false}
+                          autoPlay={false}
+                          muted
+                          loop
+                        >
                           <source src={'/videos/4.mp4'} type="video/mp4" />
                           Your browser does not support the video tag.
                         </video>
+                        <div className="flex flex-col items-center h-40 justify-between absolute top-1/2 right-1 -translate-y-1/2">
+                          <Image src={daySrc} alt="day" />
+                          <PrettoSlider
+                            orientation="vertical"
+                            value={sliderValue}
+                            onChange={handleSliderChange}
+                            className="my-1"
+                            aria-labelledby="vertical-slider"
+                            min={0}
+                            max={100}
+                          />
+                          <Image src={nightSrc} alt="night" />
+                        </div>
                       </div>
                     </AnimatedSection>
                     <AnimatedSection>
