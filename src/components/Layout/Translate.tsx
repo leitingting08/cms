@@ -20,7 +20,7 @@ const SelectLanguage: React.FC<LanguageProps> = ({ isWhite = true, className = '
     <div className="flex-start items-center md:flex-center gap-3 mt-4 md:mt-0 text-base">
       <Image src={isWhite ? languageBSrc : languageSrc} alt="" className="w-6 h-6" />
       <div
-        className={`cursor-pointer ${isWhite ? 'hover:text-black' : 'hover:text-white'} ${
+        className={`font-bold cursor-pointer ${isWhite ? 'hover:text-black' : 'hover:text-white'} ${
           isWhite
             ? `hover:text-black ${currentLanguage?.code === 'en' ? 'text-[rgba(0,0,0,.5)]' : 'text-black'}`
             : `hover:text-white ${currentLanguage?.code === 'en' ? 'text-[rgba(255,255,255,.5)]' : 'text-white'}`
@@ -29,9 +29,9 @@ const SelectLanguage: React.FC<LanguageProps> = ({ isWhite = true, className = '
       >
         中文
       </div>
-      <hr className={`h-6 w-[1px] ${isWhite ? 'bg-[rgba(0,0,0,.5)]' : 'bg-[rgba(255,255,255,.5)]'} border-none`} />
+      <hr className={`h-3 w-[1px] ${isWhite ? 'bg-[rgba(0,0,0,.5)]' : 'bg-[rgba(255,255,255,.5)]'} border-none`} />
       <div
-        className={`cursor-pointer ${
+        className={`font-bold cursor-pointer ${
           isWhite
             ? `hover:text-black ${currentLanguage?.code !== 'en' ? 'text-[rgba(0,0,0,.5)]' : 'text-black'}`
             : `hover:text-white ${currentLanguage?.code !== 'en' ? 'text-[rgba(255,255,255,.5)]' : 'text-white'}`

@@ -46,13 +46,16 @@ type AppPropsWithLayout = AppProps & {
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const Layout = Component.Layout || Fragment
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   // useEffect(() => {
   //   const timer = setTimeout(() => setLoading(false), 2000) // 模拟加载时间
   //   return () => clearTimeout(timer)
   // }, [])
   useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000) // 模拟加载时间
+    console.log('页面首次加载完成')
+
     const handleStart = () => {
       console.log('Route change started')
       // 在这里可以触发加载动画
@@ -73,6 +76,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
       router.events.off('routeChangeStart', handleStart)
       router.events.off('routeChangeComplete', handleComplete)
       router.events.off('routeChangeError', handleComplete)
+      clearTimeout(timer)
     }
   }, [router])
   return (

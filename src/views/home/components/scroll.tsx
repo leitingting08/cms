@@ -101,13 +101,15 @@ export default function Home() {
     }
 
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [recordedScrollY])
 
   return (
     <div className="h-[400vh] bg-black relative">
-      <div className="sticky top-0 h-[100vh]">
-        <div className="absolute left-10 top-1/2 transform -translate-y-1/2 h-48 flex flex-col items-center z-50">
+      <div className="sticky top-0 h-[100vh] w-full">
+        <div className="absolute left-[5rem] top-1/2 transform -translate-y-1/2 h-48 md:flex flex-col items-center z-50 hidden">
           <div>{activeSection}</div>
           <div className="w-[2px] bg-[rgba(255,255,255,.6)] h-full relative">
             <div
@@ -118,25 +120,30 @@ export default function Home() {
           <div>{len}</div>
         </div>
         <div className="parallax-wrap" ref={parallaxRef}>
-          <div className="parallax-item pr4 z-30">
-            <div className="sticky-content">
+          <div className="parallax-item md:pl-20 pr4 z-30">
+            <div className="sticky top-0">
               <div className="clip">
                 <div className="bg" />
                 <div className="content container m-auto px-4 md:px-0">
                   <div className="pin">
                     <AnimatedSection>
-                      <div className="text-4xl md:text-6xl font-bold mb-8 mt-8">{t('Marautec i-EYE')}</div>
+                      <div className="text-4xl md:text-6xl font-bold my-4 md:my-8">{t('Marautec i-EYE')}</div>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
+                      <div className="md:w-[34rem] text-sm md:text-xl">
+                        {t('AI-based Visual Detection Technology for Navigation Safety Solution')}
+                      </div>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div className="h-[25rem] invisible" />
+                      <div className="text-xl font-bold mb-4 absolute top-[13rem] md:top-[14rem] left-0 md:left-10">
+                        {t('Complete')}
+                      </div>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div className="text-xl font-bold mb-4">{t('Complete')}</div>
+                      <div className="h-[15rem] md:h-[36rem] invisible" />
                     </AnimatedSection>
-                    <ul className="pl-4">
+
+                    <ul className="pl-4 text-sm md:text-base">
                       <AnimatedSection>
                         <li className="mb-8 list-disc">
                           {t('360° panoramic view around the ship can be seen, and cover the blind areas.')}
@@ -155,25 +162,32 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="parallax-item pr3 z-20 bg-[#1059D3]">
-            <div className="sticky-content">
+          <div className="parallax-item md:pl-20 pr3 z-20 bg-[#1059D3]">
+            <div className="sticky top-0">
               <div className="clip">
                 <div className="bg" />
 
                 <div className="content container m-auto px-4 md:px-0">
                   <div className="pin">
                     <AnimatedSection>
-                      <div className="text-4xl md:text-6xl font-bold mb-8 mt-8">{t('Marautec i-EYE')}</div>
+                      <div className="text-4xl md:text-6xl font-bold my-4 md:my-8">{t('Marautec i-EYE')}</div>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
+                      <div className="md:w-[34rem] text-sm md:text-xl">
+                        {t('AI-based Visual Detection Technology for Navigation Safety Solution')}
+                      </div>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div className="flex-end py-12 relative">
+                      <div className="text-xl font-bold mb-4 absolute top-[13rem] md:top-[14rem] left-0 md:left-10">
+                        {t('Clearer')}
+                      </div>
+                    </AnimatedSection>
+                    <AnimatedSection>
+                      <div className="flex-end py-12 relative h-[15rem] md:h-[36rem]">
                         <video
                           ref={videoRef}
                           key="4"
-                          className="w-auto rounded-2xl h-[25rem] md:h-[30rem]"
+                          className="w-auto rounded-2xl h-[12rem] md:h-[30rem]"
                           controls={false}
                           autoPlay={false}
                           muted
@@ -197,10 +211,8 @@ export default function Home() {
                         </div>
                       </div>
                     </AnimatedSection>
-                    <AnimatedSection>
-                      <div className="text-xl font-bold mb-4">{t('Clearer')}</div>
-                    </AnimatedSection>
-                    <ul className="pl-4">
+
+                    <ul className="pl-4 text-sm md:text-base">
                       <AnimatedSection>
                         <li className="mb-8 list-disc">
                           {t('360° panoramic view around the ship can be seen, and cover the blind areas.')}
@@ -219,62 +231,72 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="parallax-item pr2 z-10">
-            <div className="sticky-content">
+          <div className="parallax-item md:pl-20 pr2 z-10">
+            <div className="sticky top-0">
               <div className="clip">
                 <div className="bg" />
-                <div className="content container m-auto px-4 md:px-0 overflow-y-auto md:overflow-hidden">
+                <div className="content container m-auto px-4 md:px-0">
                   <div className="pin">
                     <AnimatedSection>
                       <div className="text-4xl md:text-6xl font-bold">{t('Marautec i-EYE')}</div>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
-                    </AnimatedSection>
-                    <AnimatedSection>
-                      <div className="relative md:w-[80%] md:ml-[20%] border-2 border-white my-8 rounded-2xl">
-                        <div className="mb-2 absolute bottom-4 right-[50%] translate-x-[50%] md:translate-x-0 md:right-6 z-10">
-                          <div className="bg-[rgba(0,0,0.4)] flex justify-end space-x-2 rounded-xl text-xs md:text-base">
-                            <button
-                              onClick={() => handleSwitch('normal')}
-                              className={`px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl ${
-                                selectedVideo === 'normal' ? 'bg-[#1059D3] text-white' : 'text-[rgba(255,255,255,0.6)]'
-                              }`}
-                            >
-                              {t('Normal')}
-                            </button>
-                            <button
-                              onClick={() => handleSwitch('discern')}
-                              className={`px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl ${
-                                selectedVideo === 'discern' ? 'bg-[#1059D3] text-white' : 'text-[rgba(255,255,255,0.6)]'
-                              }`}
-                            >
-                              {t('Discern')}
-                            </button>
-                          </div>
-                        </div>
-                        <div className="border rounded-2xl overflow-hidden">
-                          <video
-                            key={selectedVideo}
-                            className="w-full rounded-2xl md:h-auto h-[14rem] object-cover"
-                            controls={false}
-                            autoPlay
-                            muted
-                            loop
-                          >
-                            <source
-                              src={selectedVideo === 'normal' ? '/videos/7.mp4' : '/videos/6.mp4'}
-                              type="video/mp4"
-                            />
-                            Your browser does not support the video tag.
-                          </video>
-                        </div>
+                      <div className="md:w-[34rem] text-sm md:text-xl">
+                        {t('AI-based Visual Detection Technology for Navigation Safety Solution')}
                       </div>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div className="text-xl font-bold mb-4">{t('Comprehensive')}</div>
+                      <div className="text-xl font-bold mb-4 absolute top-[13rem] md:top-[14rem] left-0 md:left-10">
+                        {t('Comprehensive')}
+                      </div>
                     </AnimatedSection>
-                    <ul className="md:flex gap-8 ml-4">
+                    <AnimatedSection>
+                      <div className="h-[15rem] md:h-[36rem] flex items-center">
+                        <div className="relative md:w-[80%] md:ml-[20%] border-2 border-white rounded-2xl">
+                          <div className="mb-2 absolute bottom-4 right-[50%] translate-x-[50%] md:translate-x-0 md:right-6 z-10">
+                            <div className="bg-[rgba(0,0,0.4)] flex justify-end space-x-2 rounded-xl text-xs md:text-base">
+                              <button
+                                onClick={() => handleSwitch('normal')}
+                                className={`px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl ${
+                                  selectedVideo === 'normal'
+                                    ? 'bg-[#1059D3] text-white'
+                                    : 'text-[rgba(255,255,255,0.6)]'
+                                }`}
+                              >
+                                {t('Normal')}
+                              </button>
+                              <button
+                                onClick={() => handleSwitch('discern')}
+                                className={`px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl ${
+                                  selectedVideo === 'discern'
+                                    ? 'bg-[#1059D3] text-white'
+                                    : 'text-[rgba(255,255,255,0.6)]'
+                                }`}
+                              >
+                                {t('Discern')}
+                              </button>
+                            </div>
+                          </div>
+                          <div className="border rounded-2xl overflow-hidden">
+                            <video
+                              key={selectedVideo}
+                              className="w-full rounded-2xl h-[14rem] md:h-[28rem] object-cover"
+                              controls={false}
+                              autoPlay
+                              muted
+                              loop
+                            >
+                              <source
+                                src={selectedVideo === 'normal' ? '/videos/7.mp4' : '/videos/6.mp4'}
+                                type="video/mp4"
+                              />
+                              Your browser does not support the video tag.
+                            </video>
+                          </div>
+                        </div>
+                      </div>
+                    </AnimatedSection>
+                    <ul className="md:flex gap-8 ml-4 text-sm md:text-base">
                       <AnimatedSection>
                         <li className="mb-8 list-disc">
                           {t(
@@ -288,7 +310,9 @@ export default function Home() {
                             'Integrated AI visual detection, radar, AIS, E-chart and environmental data from multiple sources onto one screen, comprehensively fusing and displaying key information about surrounding targets, and providing real-time monitoring and early warning for potential high-risk targets.'
                           )}
                         </li>
-                        <li>
+                      </AnimatedSection>
+                      <AnimatedSection>
+                        <li className="list-disc">
                           {t(
                             'Overcoming the shortcomings of traditional sensing equipment, Marautec i-EYE has the ability to detect small objects on the water surface and navigational hazards such as bridge piers. This ensures comprehensive control over potential hazards within the navigational safety lookout range, thereby laying the foundation for autonomous navigation.'
                           )}
@@ -300,25 +324,40 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="parallax-item bg-black pr1 z-0">
+          <div className="parallax-item md:pl-20 bg-black pr1 z-0">
             <div className="sticky top-0">
               <div className="clip">
                 <div className="bg" />
                 <div className="content container m-auto px-4 md:px-0">
                   <div className="pin">
                     <AnimatedSection>
-                      <div className="text-4xl md:text-6xl font-bold mb-8 mt-8">{t('Marautec i-EYE')}</div>
+                      <div className="text-4xl md:text-6xl font-bold my-4 md:my-8">{t('Marautec i-EYE')}</div>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div>{t('AI-based Visual Detection Technology for Navigation Safety Solution')}</div>
-                    </AnimatedSection>
-                    <AnimatedSection className="w-full flex-end">
-                      <Image src={bg6Src} alt="" className="my-12 rounded-2xl" />
+                      <div className="md:w-[34rem] text-sm md:text-xl">
+                        {t('AI-based Visual Detection Technology for Navigation Safety Solution')}
+                      </div>
                     </AnimatedSection>
                     <AnimatedSection>
-                      <div className="text-xl font-bold mb-4">{t('Communicatable')}</div>
+                      <div className="text-xl font-bold mb-4 absolute top-[13rem] md:top-[14rem] left-0 md:left-10">
+                        {t('Communicatable')}
+                      </div>
                     </AnimatedSection>
-                    <ul className="md:flex gap-8 pl-4">
+                    <AnimatedSection className="w-full flex-end h-[15rem] md:h-[36rem]">
+                      <video
+                        key="v4"
+                        className="w-auto h-auto md:h-[34rem] rounded-2xl object-cover"
+                        controls={false}
+                        autoPlay
+                        muted
+                        loop
+                      >
+                        <source src="/videos/1.mp4" type="video/mp4" />
+                        <Image src={bg6Src} alt="" className="py-12 h-full rounded-2xl" />
+                      </video>
+                    </AnimatedSection>
+
+                    <ul className="md:grid md:grid-cols-3 gap-8 pl-4 text-sm md:text-base">
                       <AnimatedSection>
                         <li className="mb-8 list-disc">
                           {t(

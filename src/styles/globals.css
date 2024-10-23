@@ -11,6 +11,9 @@
     @apply bg-black m-0 p-0 text-white font-primary w-full h-full;
     -webkit-overflow-scrolling: touch;
   }
+  body {
+    @apply overflow-x-hidden overflow-y-scroll;
+  }
   .parallax-wrap {
     position: relative;
     width: 100%;
@@ -26,7 +29,6 @@
     height: 100%;
     contain: paint;
     transition: all 0.5s linear;
-    padding-left: 4%;
   }
 
   .parallax-item .clip {
@@ -72,11 +74,9 @@
   }
 
   .parallax-item .content {
-    /* position: absolute; */
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100vh;
+    overflow: scroll;
     padding-top: 3rem;
     padding-bottom: 3rem;
   }

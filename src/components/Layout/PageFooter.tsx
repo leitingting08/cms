@@ -14,9 +14,8 @@ const PageFooter: React.FC<PageFooterProps> = ({ isWhite = true }) => {
       <Image
         src={isWhite ? backbSrc : backSrc}
         alt="back to the top"
-        className="cursor-pointer absolute right-10 -top-16 w-10 h-10 md:w-12 md:h-12"
+        className="cursor-pointer absolute right-10 md:right-20 -top-16 w-10 h-10 md:w-12 md:h-12"
         onClick={() => {
-          console.log(window)
           window.scrollTo({
             left: 0,
             top: 0,
@@ -24,8 +23,8 @@ const PageFooter: React.FC<PageFooterProps> = ({ isWhite = true }) => {
           })
         }}
       />
-      <div className="container m-auto">
-        <div className="md:flex-between py-12">
+      <div className="container m-auto md:px-[3rem]">
+        <div className="md:flex-between py-12 md:py-20">
           <div className="text-[#999] text-left py-4 md:py-0">
             <Image src={logoSrc} alt="logo" className="md:w-56 mb-4" />
             <div>{t('201, Building B, No. 3033, Jinxiu East Road, Pudong New Area, Shanghai')}</div>
@@ -39,11 +38,11 @@ const PageFooter: React.FC<PageFooterProps> = ({ isWhite = true }) => {
           </div>
           <Image src={qrcodeSrc} alt="logo" className="w-36 h-36 m-auto md:m-0" />
         </div>
-        <div className="md:flex-between border-t border-[#6B6B6B] py-6 text-left">
-          <div className="md:flex gap-4 text-[#A1A1A1] mb-4">
+        <div className="md:flex-between py-6 text-left">
+          {/* <div className="md:flex gap-4 text-[#A1A1A1] mb-4">
             <div>{t('Privacy policy')}</div>
             <div>{t('Audio-visual information processing equipment operation and management policy')}</div>
-          </div>
+          </div> */}
           <div className="text-[#999]">
             {t('Copyright © 2024  Mairun Intelligent Technology (Shanghai) Co., Ltd. All Rights Reserved.')}
           </div>
