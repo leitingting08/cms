@@ -120,11 +120,11 @@ export default function Home() {
           <div>{len}</div>
         </div>
         <div className="parallax-wrap" ref={parallaxRef}>
-          <div className="parallax-item md:pl-20 pr4 z-30">
+          <div className="parallax-item pr4 z-30">
             <div className="sticky top-0">
               <div className="clip">
                 <div className="bg" />
-                <div className="content container m-auto px-4 md:px-0">
+                <div className="content container m-auto px-4 md:px-16">
                   <div className="pin">
                     <AnimatedSection>
                       <div className="text-4xl md:text-6xl font-bold my-4 md:my-8">{t('Marautec i-EYE')}</div>
@@ -162,12 +162,12 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="parallax-item md:pl-20 pr3 z-20 bg-[#1059D3]">
+          <div className="parallax-item pr3 z-20 bg-[#1059D3]">
             <div className="sticky top-0">
               <div className="clip">
                 <div className="bg" />
 
-                <div className="content container m-auto px-4 md:px-0">
+                <div className="content container m-auto px-4 md:px-16">
                   <div className="pin">
                     <AnimatedSection>
                       <div className="text-4xl md:text-6xl font-bold my-4 md:my-8">{t('Marautec i-EYE')}</div>
@@ -231,11 +231,11 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="parallax-item md:pl-20 pr2 z-10">
+          <div className="parallax-item pr2 z-10">
             <div className="sticky top-0">
               <div className="clip">
                 <div className="bg" />
-                <div className="content container m-auto px-4 md:px-0">
+                <div className="content container m-auto px-4 md:px-16">
                   <div className="pin">
                     <AnimatedSection>
                       <div className="text-4xl md:text-6xl font-bold">{t('Marautec i-EYE')}</div>
@@ -324,11 +324,11 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="parallax-item md:pl-20 bg-black pr1 z-0">
+          <div className="parallax-item bg-black pr1 z-0">
             <div className="sticky top-0">
               <div className="clip">
                 <div className="bg" />
-                <div className="content container m-auto px-4 md:px-0">
+                <div className="content container m-auto px-4 md:px-16">
                   <div className="pin">
                     <AnimatedSection>
                       <div className="text-4xl md:text-6xl font-bold my-4 md:my-8">{t('Marautec i-EYE')}</div>
