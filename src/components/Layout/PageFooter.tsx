@@ -10,7 +10,7 @@ interface PageFooterProps {
 const PageFooter: React.FC<PageFooterProps> = ({ isWhite = true }) => {
   const { t } = useTranslation()
   return (
-    <div className="relative bottom-0 left-0 w-full px-6 md:px-0">
+    <div className="relative bottom-0 left-0 w-full px-6 md:px-0 bg-black">
       <Image
         src={isWhite ? backbSrc : backSrc}
         alt="back to the top"

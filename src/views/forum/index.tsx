@@ -14,10 +14,10 @@ const Home: React.FC = () => {
   }
   return (
     <Layout isWhite={false}>
-      <div className="container m-auto px-4 md:px-0">
+      <div className="container m-auto px-4 md:px-16">
         <div className="text-left mb-20 animate-slide-in-bottom">
-          <h1 className="text-5xl font-bold mt-10">{t('MASS Forum')}</h1>
-          <p className="mt-2">{t('After 3 years, here is a wonderful aftertaste')}</p>
+          <h1 className="text-5xl md:text-[130px] md:leading-[130px] font-bold mt-16 md:mt-20">{t('MASS Forum')}</h1>
+          <p className="mt-2 md:mt-6 text-base md:text-2xl">{t('After 3 years, here is a wonderful aftertaste')}</p>
         </div>
         <Tabs
           value={value}
@@ -26,28 +26,28 @@ const Home: React.FC = () => {
           variant="scrollable"
           scrollButtons="auto"
           TabIndicatorProps={{
-            className: 'bg-white h-0.5'
+            className: '!bg-white h-0.5 text-white mb-2'
           }}
         >
           <Tab
             label={t('Shanghai. 2023')}
             classes={{
-              root: 'text-[rgba(255,255,255,.7)] hover:text-white text-base md:text-xl',
-              selected: '!text-white font-bold'
+              root: 'text-[rgba(255,255,255,.7)] hover:!text-white !text-base md:!text-2xl !mx-4 !px-0',
+              selected: '!text-white !font-bold'
             }}
           />
           <Tab
             label={t('Shanghai. 2024')}
             classes={{
-              root: 'text-[rgba(255,255,255,.7)] hover:text-white text-base md:text-xl',
-              selected: '!text-white font-bold'
+              root: 'text-[rgba(255,255,255,.7)] hover:!text-white !text-base md:!text-2xl !mx-4 !px-0',
+              selected: '!text-white !font-bold'
             }}
           />
           <Tab
             label={t('2025 Forum Plan')}
             classes={{
-              root: 'text-[rgba(255,255,255,.7)] hover:text-white text-base md:text-xl',
-              selected: '!text-white font-bold'
+              root: 'text-[rgba(255,255,255,.7)] hover:!text-white !text-base md:!text-2xl !mx-4 !px-0',
+              selected: '!text-white !font-bold'
             }}
           />
         </Tabs>
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
                   src={`/images/forum/forum${index + 1}.jpg`}
                   width={300}
                   height={200}
-                  className="w-auto h-[8rem] md:h-[16rem] md:my-4 ml-8 mb-3 md:mb-4"
+                  className="w-auto h-[8rem] md:h-[20rem] md:my-4 ml-8 mb-3 md:mb-4"
                   alt="forum"
                 />
               )
@@ -74,7 +74,7 @@ const Home: React.FC = () => {
                   src={`/images/forum/forum${index + 5}.jpg`}
                   width={300}
                   height={200}
-                  className="w-auto h-[8rem] md:h-[16rem] md:my-4 ml-8 mb-3 md:mb-4"
+                  className="w-auto h-[8rem] md:h-[20rem] md:my-4 ml-8 mb-3 md:mb-4"
                   alt="forum"
                 />
               )
@@ -88,7 +88,7 @@ const Home: React.FC = () => {
                   src={`/images/forum/forum${index + 9}.jpg`}
                   width={300}
                   height={200}
-                  className="w-auto h-[8rem] md:h-[16rem] md:my-4 ml-8 mb-3 md:mb-4"
+                  className="w-auto h-[8rem] md:h-[20rem] md:my-4 ml-8 mb-3 md:mb-4"
                   alt="forum"
                 />
               )
@@ -104,7 +104,7 @@ const Home: React.FC = () => {
                   src={`/images/forum/forum${index + 1}.jpg`}
                   width={300}
                   height={200}
-                  className="w-auto h-[8rem] md:h-[16rem] md:my-4 ml-8 mb-3 md:mb-4"
+                  className="w-auto h-[8rem] md:h-[20rem] md:my-4 ml-8 mb-3 md:mb-4"
                   alt="forum"
                 />
               )
@@ -118,7 +118,7 @@ const Home: React.FC = () => {
                   src={`/images/forum/forum${index + 5}.jpg`}
                   width={300}
                   height={200}
-                  className="w-auto h-[8rem] md:h-[16rem] md:my-4 ml-8 mb-3 md:mb-4"
+                  className="w-auto h-[8rem] md:h-[20rem] md:my-4 ml-8 mb-3 md:mb-4"
                   alt="forum"
                 />
               )
@@ -132,7 +132,7 @@ const Home: React.FC = () => {
                   src={`/images/forum/forum${index + 9}.jpg`}
                   width={300}
                   height={200}
-                  className="w-auto h-[8rem] md:h-[16rem] md:my-4 ml-8 mb-3 md:mb-4"
+                  className="w-auto h-[8rem] md:h-[20rem] md:my-4 ml-8 mb-3 md:mb-4"
                   alt="forum"
                 />
               )

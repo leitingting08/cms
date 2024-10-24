@@ -4,74 +4,100 @@ import { useTranslation } from 'contexts/Localization'
 import { bg5Src, desc1Src, desc2Src, desc3Src, icon1Src, icon2Src, icon3Src, icon4Src } from 'utils/icon'
 import Image from 'next/image'
 import { AnimatedSection } from '../home'
-import { motion, useAnimation } from 'framer-motion'
 import LINKS from 'utils/links'
 
 const Home: React.FC = () => {
   const { t } = useTranslation()
-  const controls = useAnimation()
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
-      console.log(window.scrollY)
       setScrollY(window.scrollY)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    controls.start({
-      opacity: scrollY > 100 ? 1 : 0,
-      scale: scrollY > 100 ? 1 : 0.8,
-      transition: { duration: 0.5 }
-    })
-  }, [scrollY, controls])
+  const calculateHeight = () => {
+    const baseHeight = 50 // 基础高度百分比
+    const maxHeight = 100 // 最大高度百分比
+    return Math.min(baseHeight + scrollY * 0.18, maxHeight) + '%'
+  }
+
+  const calculateClipPath = () => {
+    const baseClip = 0; // 初始clip-path值
+    const maxClip = 100; // 最大clip-path值，以像素为单位
+    const offset = 160; // 滚动偏移量，以像素为单位
+  
+    // 使用 Math.max 确保 clip-path 不小于 0
+    return Math.max(baseClip, Math.min(((scrollY - offset) * 0.58), maxClip)) + '%';
+  };
+
+  const calculateTransform = () => {
+    const baseClip = 0; // 初始clip-path值
+    const maxClip = 30; // 最大clip-path值
+    const v = Math.min(baseClip + scrollY * 0.1, maxClip);
+  
+    // 计算 scale 从 0.8 到 1 的过渡
+    const scaleValue = 0.8 + (v / maxClip) * 0.2;
+  
+    return `translateY(${maxClip - v}%) scale(${scaleValue})`;
+  };
 
   return (
     <Layout>
-      <div className={`bg-white text-black text-left pb-0`}>
-        <div className={`container m-auto sticky top-0 px-4 md:px-0 z-10 ${scrollY > 100 ? 'text-white' : ''}`}>
-          <div className="text-5xl md:text-9xl pt-8 animate-slide-in-bottom">{t('Focus MASS')}</div>
-          <div className="my-10 w-full md:w-[36rem] font-bold animate-slide-in-bottom">
-            {t(
-              'Maritime Autonomous Surface Ships (MASS) refer to vessels capable of operating independently of human intervention to varying degrees.'
-            )}
+      <div className={`bg-white text-black text-left pb-0 relative`}>
+         <div className={`container sticky top-0 overflow-hidden m-auto md:pt-[8rem] h-[100vh] px-4 md:px-40 z-10`}>
+            <div className="top_tit-inner statics" style={{ clipPath: `inset(0% 0% ${calculateClipPath()})` }}>
+              <div className="text-5xl md:text-[130px] md:leading-[130px] font-bold pt-8 animate-slide-in-bottom">
+                {t('Focus MASS')}
+              </div>
+              <div className="my-10 w-full md:w-[52rem] font-bold text-base md:text-2xl animate-slide-in-bottom">
+                {t(
+                  'Maritime Autonomous Surface Ships (MASS) refer to vessels capable of operating independently of human intervention to varying degrees.'
+                )}
+              </div>
+            </div>
+            <div className="top_tit-inner absol text-white md:pt-[8rem]">
+              <div className="text-5xl md:text-[130px] md:leading-[130px] font-bold pt-8 animate-slide-in-bottom">
+                {t('Focus MASS')}
+              </div>
+              <div className="my-10 w-full md:w-[52rem] font-bold text-base md:text-2xl animate-slide-in-bottom">
+                {t(
+                  'Maritime Autonomous Surface Ships (MASS) refer to vessels capable of operating independently of human intervention to varying degrees.'
+                )}
+              </div>
+              <div className="my-10 w-full md:w-[60rem]">
+                <p>
+                  {t(
+                    'The MASS Code, developed by the International Maritime Organization (IMO), is a set of regulations aimed at providing a regulatory framework for autonomous navigation. Given the potential benefits of MASS in reducing operating costs and enhancing environmental protection, multiple countries are actively engaged in the development of MASS technology.'
+                  )}
+                </p>
+                <p className="my-4">
+                  {t(
+                    'The non-mandatory MASS Code is expected to be finalized and adopted by May 2025. According to the Maritime Safety Committee (MSC) of the IMO, by 2028, the MSC anticipates beginning the development of mandatory MASS regulations based on the existing non-mandatory guidelines.'
+                  )}
+                </p>
+                <p>
+                  {t(
+                    'Currently, many nations are taking proactive measures to advance the development of autonomous vessels, leading to substantial progress in legislation, standardization, and the theories, designs, and practices related to smart shipping.'
+                  )}
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="my-10 w-full md:w-[60rem] animate-slide-in-bottom">
-            <p>
-              {t(
-                'The MASS Code, developed by the International Maritime Organization (IMO), is a set of regulations aimed at providing a regulatory framework for autonomous navigation. Given the potential benefits of MASS in reducing operating costs and enhancing environmental protection, multiple countries are actively engaged in the development of MASS technology.'
-              )}
-            </p>
-            <p className="my-4">
-              {t(
-                'The non-mandatory MASS Code is expected to be finalized and adopted by May 2025. According to the Maritime Safety Committee (MSC) of the IMO, by 2028, the MSC anticipates beginning the development of mandatory MASS regulations based on the existing non-mandatory guidelines.'
-              )}
-            </p>
-            <p>
-              {t(
-                'Currently, many nations are taking proactive measures to advance the development of autonomous vessels, leading to substantial progress in legislation, standardization, and the theories, designs, and practices related to smart shipping.'
-              )}
-            </p>
+          <div className="top_kv_area overflow-hidden -mt-[60rem]" style={{ transform: calculateTransform() }}>
+            <div className='core-wrap mt-[8rem]'>
+            <div style={{ height: calculateHeight() }}>
+              <Image className="core w-full h-full object-cover" src={bg5Src} alt="kv" />
+            </div>
+            </div>
           </div>
-        </div>
+      </div>
 
-        <motion.div
-          animate={{
-            width: scrollY > 100 ? '100%' : '80%',
-            top: scrollY > 100 ? '-36rem' : 0,
-            transition: { duration: 0.5, ease: 'easeOut' }
-          }}
-          className="m-auto relative z-0"
-        >
-          <Image src={bg5Src} alt="" className="w-full" />
-        </motion.div>
-
-        <div className={`container m-auto px-4 md:px-0 relative ${scrollY > 100 ? '-top-[36rem]' : ''}`}>
+      <div className={`container m-auto px-4 md:px-16 relative text-black text-left`}>
           <AnimatedSection>
-            <div className="text-2xl md:text-4xl mt-20 mb-12 font-bold w-full md:w-[40rem] leading-20">
+            <div className="text-2xl md:text-5xl mt-20 md:mt-28 md:mb-20 mb-12 font-bold w-full md:w-[45rem] leading-20">
               {t(
                 'In recent years, Marautec has dedicated itself to participating in and promoting the establishment of relevant standards both domestically and internationally.'
               )}
@@ -85,15 +111,15 @@ const Home: React.FC = () => {
                 )}
               </div>
             </AnimatedSection>
-            <div className="md:grid grid-cols-4 gap-4 mb-8">
+            <div className="md:grid grid-cols-4 gap-4 my-8 md:my-20">
               <div className="flex flex-col items-center">
-                <div className="p-4 bg-white text-cente flex items-center md:block">
+                <div className="p-4 bg-white text-center flex items-center md:block">
                   <AnimatedSection>
-                    <Image src={icon1Src} alt="" className="md:m-auto w-[5rem] md:w-[12rem]" />
+                    <Image src={icon4Src} alt="" className="md:m-auto w-[5rem] md:w-[8rem]" />
                   </AnimatedSection>
-                  <div className="text-left">
+                  <div>
                     <AnimatedSection>
-                      <h2 className="text-xl font-semibold">{t('All Around Coverage')}</h2>
+                      <h2 className="text-xl md:text-3xl font-semibold mt-4 md:mt-8">{t('All Around Coverage')}</h2>
                     </AnimatedSection>
                     <AnimatedSection>
                       <p>
@@ -108,11 +134,11 @@ const Home: React.FC = () => {
               <div className="flex flex-col items-center">
                 <div className="p-4 bg-white md:text-center flex items-center md:block">
                   <AnimatedSection>
-                    <Image src={icon2Src} alt="" className="md:m-auto w-[5rem] md:w-[12rem]" />
+                    <Image src={icon2Src} alt="" className="md:m-auto w-[5rem] md:w-[8rem]" />
                   </AnimatedSection>
-                  <div className="text-left">
+                  <div>
                     <AnimatedSection>
-                      <h2 className="text-xl font-semibold">{t('All Weather Conditions')}</h2>
+                      <h2 className="text-xl md:text-3xl font-semibold mt-4 md:mt-8">{t('All Weather Conditions')}</h2>
                     </AnimatedSection>
                     <AnimatedSection>
                       <p>{t('With enhanced visibility in night and foggy conditions for navigation day and night')}</p>
@@ -123,11 +149,11 @@ const Home: React.FC = () => {
               <div className="flex flex-col items-center">
                 <div className="p-4 bg-white md:text-center flex items-center md:block">
                   <AnimatedSection>
-                    <Image src={icon3Src} alt="" className="md:m-auto w-[5rem] md:w-[12rem]" />
+                    <Image src={icon3Src} alt="" className="md:m-auto w-[5rem] md:w-[8rem]" />
                   </AnimatedSection>
-                  <div className="text-left">
+                  <div>
                     <AnimatedSection>
-                      <h2 className="text-xl font-semibold">{t('All Processes')}</h2>
+                      <h2 className="text-xl md:text-3xl font-semibold mt-4 md:mt-8">{t('All Processes')}</h2>
                     </AnimatedSection>
                     <AnimatedSection>
                       <p>
@@ -142,11 +168,11 @@ const Home: React.FC = () => {
               <div className="flex flex-col items-center">
                 <div className="p-4 bg-white md:text-center w-full flex items-center md:block">
                   <AnimatedSection>
-                    <Image src={icon4Src} alt="" className="md:m-auto w-[5rem] md:w-[12rem]" />
+                    <Image src={icon1Src} alt="" className="md:m-auto w-[5rem] md:w-[8rem]" />
                   </AnimatedSection>
-                  <div className="text-left">
+                  <div>
                     <AnimatedSection>
-                      <h2 className="text-xl font-semibold">{t('All Stakeholders')}</h2>
+                      <h2 className="text-xl md:text-3xl font-semibold mt-4 md:mt-8">{t('All Stakeholders')}</h2>
                     </AnimatedSection>
                     <AnimatedSection>
                       <p>
@@ -160,10 +186,10 @@ const Home: React.FC = () => {
               </div>
             </div>
 
-            <div className="md:flex-between mb-8 gap-8">
+            <div className="md:grid md:grid-cols-2 mb-8 gap-8 md:gap-24">
               <div>
                 <AnimatedSection>
-                  <p className="mt-4 listdisc">
+                  <p className="mt-4 listdisc text-xl font-bold mb-8">
                     {t(
                       'Marautec is actively communicating with relevant standard-setting units and institutions topromote the development of related technologies and regulations. in April 2024, the intelligentShip Specifications by CCS came into effect, with visual enhancement systems included asessential components for the auxiliary navigation class notation, making them a required system.'
                     )}
@@ -171,26 +197,28 @@ const Home: React.FC = () => {
                 </AnimatedSection>
                 <div>
                   <AnimatedSection>
-                    <p>
+                    <p className="listdisc-s pl-8">
                       {t(
                         'On December 5, 2023, Marautec obtained the first principle approval certificate for avisual situational awareness auxiliary navigation system in China, issued by CCS.'
                       )}
                     </p>
                   </AnimatedSection>
                   <AnimatedSection>
-                    <p>{t('On October 28, 2024, a approval in principle was granted by the Liberian Registry.')}</p>
+                    <p className="listdisc-s pl-8 pt-4">
+                      {t('On October 28, 2024, a approval in principle was granted by the Liberian Registry.')}
+                    </p>
                   </AnimatedSection>
                 </div>
               </div>
               <AnimatedSection>
-                <Image src={desc1Src} alt="Image 1" className="w-[50rem]" />
+                <Image src={desc1Src} alt="Image 1" className="w-full md:w-[45rem]" />
               </AnimatedSection>
             </div>
 
-            <div className="md:flex-between mb-8 gap-8">
+            <div className="md:grid md:grid-cols-2 mb-8 gap-8 md:gap-24 my-16 md:my-32">
               <div>
                 <AnimatedSection>
-                  <p className="mt-4 listdisc">
+                  <p className="mt-4 listdisc text-xl font-bold mb-8">
                     {t(
                       'As the representative of IMO MASS rule-making communication Liaison Group, Marautec actively participated in following up IMO MASS rule-making related meetings, and cooperated with relevant units in the industry to release the MASS Technology Implementation Path Analysis White Paper'
                     )}
@@ -232,17 +260,19 @@ const Home: React.FC = () => {
                 </div>
               </div>
               <AnimatedSection>
-                <Image src={desc2Src} alt="Image 2" className="w-[50rem]" />
+                <Image src={desc2Src} alt="Image 2" className="w-full md:w-[45rem]" />
               </AnimatedSection>
             </div>
 
-            <div className="md:flex-between mb-8 gap-8">
+            <div className="md:grid md:grid-cols-2 mb-8 gap-8 md:gap-24">
               <div>
                 <AnimatedSection>
-                  <p className="mt-4 listdisc">{t('Promote the establishment of a shipping AI data platform')}</p>
+                  <p className="mt-4 listdisc text-xl font-bold mb-8">
+                    {t('Promote the establishment of a shipping AI data platform')}
+                  </p>
                 </AnimatedSection>
                 <AnimatedSection>
-                  <p>
+                  <p className="text-xl font-bold mb-8">
                     {t(
                       'Shipping AI Data Center is an open, sharing platform promoting the application of AI technologies in shipping industries. It was established in World AI Conference in Shanghai on 6th July 2023, with China Association of National Shipbuilding Industries and China Institute of Navigation as its supervisors, and Shanghai Jiao Tong University, Shanghai Maritime University, Dalian Maritime University, Harbin Engineering University, Wuhan University of Technology, and Jimei University as its council members.'
                     )}
@@ -250,12 +280,11 @@ const Home: React.FC = () => {
                 </AnimatedSection>
               </div>
               <AnimatedSection>
-                <Image src={desc3Src} alt="Image 3" className="w-[50rem]" />
+                <Image src={desc3Src} alt="Image 3" className="w-full md:w-[45rem]" />
               </AnimatedSection>
             </div>
           </div>
         </div>
-      </div>
     </Layout>
   )
 }

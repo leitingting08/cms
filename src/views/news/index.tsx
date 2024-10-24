@@ -59,15 +59,17 @@ const Home: React.FC = () => {
     <Layout>
       <div className="bg-white">
         <div className="container mx-auto p-4">
-          <h1 className="text-4xl font-bold mb-6 animate-slide-in-bottom text-black text-left">News</h1>
-          <div className="md:grid grid-cols-3 gap-6">
+          <h1 className="text-4x md:text-[130px] md:leading-[130px] font-bold mb-6 md:my-16 animate-slide-in-bottom text-black text-left">
+            News
+          </h1>
+          <div className="md:grid grid-cols-3 gap-6 md:gap-10">
             {newsItems.map((item, index) => (
               <Link href={`/detail/${item.id}`} key={index}>
-                <div className="bg-white rounded-lg mb-4 overflow-hidden animate-slide-in-bottom">
+                <div className="bg-white mb-4 md:mb-10 overflow-hidden animate-slide-in-bottom">
                   <Image src={item.image} alt={item.title} className="w-full h-48 object-cover" />
-                  <div className="p-4">
-                    <p className="text-sm text-gray-500">{t(item.date)}</p>
-                    <h2 className="text-lg font-semibold">{t(item.title)}</h2>
+                  <div className="text-left">
+                    <p className="text-sm text-gray-500 my-3 md:my-5">{t(item.date)}</p>
+                    <h2 className="text-lg font-semibold text-black">{t(item.title)}</h2>
                   </div>
                 </div>
               </Link>

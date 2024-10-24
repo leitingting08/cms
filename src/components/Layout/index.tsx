@@ -6,11 +6,12 @@ import router from 'next/router'
 import Image from 'next/image'
 interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   backTitle?: string
+  className?: string
   hideHeader?: boolean
   isWhite?: boolean
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false, isWhite = true }) => {
+const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false, isWhite = true, className="" }) => {
   const [open, setOpen] = useState(false)
   const handleChange = (state: boolean) => {
     setOpen(state)
@@ -25,7 +26,7 @@ const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false
           <div className="text-xl ml-2 font-bold">{backTitle}</div>
         </div>
       ) : null}
-      <div className={`pb-12 ${isWhite ? 'bg-white' : 'bg-black'}`}>{children}</div>
+      <div className={`${className} ${isWhite ? 'bg-white' : 'bg-black'}`}>{children}</div>
       <PageFooter isWhite={isWhite} />
     </div>
   )
