@@ -11,7 +11,7 @@ interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   isWhite?: boolean
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false, isWhite = true, className="" }) => {
+const Layout: React.FC<LayoutProps> = ({ children, backTitle, hideHeader = false, isWhite = true, className = '' }) => {
   const [open, setOpen] = useState(false)
   const handleChange = (state: boolean) => {
     setOpen(state)

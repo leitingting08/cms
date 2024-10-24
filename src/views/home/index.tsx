@@ -48,7 +48,7 @@ const Home: React.FC = () => {
   const videoRef = useRef<any>(null)
   const swiperRef = useRef<any>(null)
   // const videos = ['/videos/5.mp4', '/videos/2.mp4', '/videos/3.mp4']
-  const screenWidth = window.innerWidth
+  const [screenWidth, setScreenWidth] = useState(0)
   const source = [
     {
       video: '/videos/5.mp4',
@@ -106,6 +106,8 @@ const Home: React.FC = () => {
     const videoElement = videoRef.current
     videoElement?.addEventListener('timeupdate', handleProgress)
     videoElement?.play()
+
+    window.innerWidth && setScreenWidth(window.innerWidth)
 
     return () => {
       videoElement?.removeEventListener('timeupdate', handleProgress)
